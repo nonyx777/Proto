@@ -27,7 +27,8 @@ public:
 
     void pollEvent();
     void update() override;
-    void render() override;
+    void render(sf::RenderTarget* target) override;
+    void render();
 
     const bool running() const;
 };

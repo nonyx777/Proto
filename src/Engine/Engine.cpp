@@ -46,6 +46,10 @@ void Engine::update()
     this->mouse_position = sf::Mouse::getPosition(*this->window);
     this->mouse_position_view = this->window->mapPixelToCoords(this->mouse_position);
 }
+void Engine::render(sf::RenderTarget *target)
+{
+    //....
+}
 void Engine::render()
 {
     this->window->clear(sf::Color::Black);
