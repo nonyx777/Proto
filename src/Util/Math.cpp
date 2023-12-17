@@ -31,15 +31,12 @@ float Utility::_length(sf::Vector2f vector){
     return sqrt(pow(vector.x, 2) + pow(vector.y, 2));
 }
 sf::Vector2f Utility::_displacement(sf::Vector2f target_position, sf::Vector2f self_position){
-    sf::Vector2f displacement = sf::Vector2f(
-        target_position.x - self_position.x, target_position.y - self_position.y
-    );
+    sf::Vector2f displacement = target_position - self_position;
     return displacement;
 }
 sf::Vector2f Utility::_normalize(sf::Vector2f vector){
-    float magnitude = Utility::_length(vector);
-    sf::Vector2f unit_vector = sf::Vector2f(vector.x, vector.y)/magnitude;
-    return unit_vector;
+    float length = Utility::_length(vector);
+    return sf::Vector2f(vector.x, vector.y)/length;
 }
 sf::Vector2f Utility::_rotate(sf::Vector2f vector, float angle){
     sf::Vector2f a = sf::Vector2f(Utility::_cos(angle), Utility::_sin(angle));
