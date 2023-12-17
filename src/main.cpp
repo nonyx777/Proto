@@ -6,7 +6,8 @@ int main()
 {
     Engine engine;
 
-    while(engine.running()){
+    while (engine.running())
+    {
         engine.update();
         engine.render();
     }
