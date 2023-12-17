@@ -1,31 +1,33 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "../GameObject/GameObject.hpp"
 
 using namespace std;
 
-class Engine{
-    private:
-        //initializer functions
-        void initVariables();
-        void initWindow();
+class Engine : public GameObject
+{
+private:
+    // initializer functions
+    void initVariables();
+    void initWindow();
 
-        //window variables
-        sf::RenderWindow* window;
-        sf::VideoMode video_mode;
-        sf::Event event;
+    // window variables
+    sf::RenderWindow *window;
+    sf::VideoMode video_mode;
+    sf::Event event;
 
-        //mouse position
-        sf::Vector2i mouse_position;
-        sf::Vector2f mouse_position_view;
+    // mouse position
+    sf::Vector2i mouse_position;
+    sf::Vector2f mouse_position_view;
 
-    public:
-        Engine();
-        ~Engine();
+public:
+    Engine();
+    ~Engine();
 
-        void pollEvent();
-        void update();
-        void render();
+    void pollEvent();
+    void update() override;
+    void render() override;
 
-        const bool running() const;
+    const bool running() const;
 };
