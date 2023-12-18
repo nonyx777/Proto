@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../GameObject/GameObject.hpp"
-#include "../Entities/Entities.hpp"
+#include "../../GameObject/GameObject.hpp"
+#include "../../Entities/Entities.hpp"
 
 class Scene : public GameObject
 {

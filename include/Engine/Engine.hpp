@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "../GameObject/GameObject.hpp"
-#include "../Scene/Scene.hpp"
+#include "../Game/Scene/Scene.hpp"
 
 using namespace std;
 
