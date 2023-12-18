@@ -53,5 +53,6 @@ void Engine::render(sf::RenderTarget *target)
 void Engine::render()
 {
     this->window->clear(sf::Color::Black);
+    scene->render(this->window);
     this->window->display();
 }

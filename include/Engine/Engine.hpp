@@ -22,6 +22,9 @@ private:
     sf::Vector2i mouse_position;
     sf::Vector2f mouse_position_view;
 
+private:
+    Scene *scene = Scene::getInstance();
+
 public:
     Engine();
     ~Engine();

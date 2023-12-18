@@ -5,8 +5,19 @@
 
 class Scene : public GameObject
 {
-public:
+private:
+    static Scene *instance;
+
+private:
     Scene();
+    ~Scene();
+
+public:
+    // Delete copy constructor and assignment operator to prevent cloning
+    Scene(const Scene &) = delete;
+    Scene &operator=(const Scene &) = delete;
+
+    static Scene *getInstance();
 
     void update() override;
     void render(sf::RenderTarget *target) override;
