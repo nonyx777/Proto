@@ -5,7 +5,8 @@
 class Line : public GameObject
 {
 public:
-    sf::Vector2f base, direction;
+    sf::Vector2f base;
+    sf::Vector2f direction;
 
     Line(sf::Vector2f base, sf::Vector2f direction);
 

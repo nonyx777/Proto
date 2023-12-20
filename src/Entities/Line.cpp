@@ -6,6 +6,11 @@ Line::Line(sf::Vector2f base, sf::Vector2f direction)
     this->direction = direction;
 }
 
+void Line::update()
+{
+    //...
+}
+
 void Line::render(sf::RenderTarget *target)
 {
     sf::Vertex line[] = {
