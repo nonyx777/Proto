@@ -3,10 +3,12 @@
 
 class GameObject
 {
-protected:
+public:
     sf::Vector2f velocity;
     sf::Vector2f acceleration;
-    sf::Vector2f mass;
+    float mass;
+    float inverseMass;
+    float elasticity;
 
 public:
     virtual void update() = 0;

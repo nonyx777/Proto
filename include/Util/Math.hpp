@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <math.h>
@@ -6,7 +8,7 @@
 
 using namespace std;
 
-class Utility
+class Math
 {
 public:
     // trig operations
