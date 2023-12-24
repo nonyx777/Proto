@@ -8,6 +8,7 @@ public:
     sf::CircleShape circle;
 
 public:
+    Circle();
     Circle(float radius);
 
     void update() override;

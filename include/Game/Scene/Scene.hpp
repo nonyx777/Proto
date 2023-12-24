@@ -2,11 +2,13 @@
 
 #include "../../GameObject/GameObject.hpp"
 #include "../../Entities/Entities.hpp"
+#include "../../Util/Gizmo.hpp"
 
 class Scene : public GameObject
 {
 private:
     static Scene *instance;
+    Gizmo gizmo;
 
 private:
     Scene();

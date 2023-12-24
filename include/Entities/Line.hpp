@@ -8,6 +8,7 @@ public:
     sf::Vector2f base;
     sf::Vector2f direction;
 
+    Line();
     Line(sf::Vector2f base, sf::Vector2f direction);
 
     void update() override;

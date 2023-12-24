@@ -1,5 +1,10 @@
 #include "../../include/Entities/Line.hpp"
 
+Line::Line()
+{
+    //...
+}
+
 Line::Line(sf::Vector2f base, sf::Vector2f direction)
 {
     this->base = base;
