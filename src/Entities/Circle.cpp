@@ -2,13 +2,17 @@
 
 Circle::Circle()
 {
-    this->circle.setFillColor(sf::Color::White);
-    this->inverseMass = this->mass == 0.f ? 100000.f : 1.f / this->mass;
+    this->initVariables();
 }
 
 Circle::Circle(float radius)
 {
+    this->initVariables();
     this->circle.setRadius(radius);
+}
+
+void Circle::initVariables()
+{
     this->circle.setFillColor(sf::Color::White);
     this->inverseMass = this->mass == 0.f ? 100000.f : 1.f / this->mass;
 }

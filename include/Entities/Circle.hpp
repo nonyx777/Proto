@@ -7,6 +7,9 @@ class Circle : public GameObject
 public:
     sf::CircleShape circle;
 
+private:
+    void initVariables();
+
 public:
     Circle();
     Circle(float radius);
