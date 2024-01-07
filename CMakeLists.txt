@@ -6,6 +6,9 @@ project(proto VERSION 1.0)
 
 find_package(SFML 2 REQUIRED network audio graphics window system)
 
+#include catch2 for the tests
+add_subdirectory(tests)
+
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
 add_executable(proto ${SRC_FILES})
 

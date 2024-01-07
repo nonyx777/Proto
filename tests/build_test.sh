@@ -1,0 +1,1 @@
+g++ main_test.cpp ../src/Util/Math.cpp -o build/test -lsfml-graphics
