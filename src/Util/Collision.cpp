@@ -32,6 +32,52 @@ bool Collision::_circleSegmentOverlapping(Circle &a, Line &l)
            Math::_length(p) <= Math::_length(d) &&
            0 <= Math::_dot(p, d);
 }
+// actual collision functions
+bool Collision::_linesCollide(Line &a, Line &b)
+{
+    if (Math::_parallel(a.direction, b.direction))
+        return false;
+    else
+        return true;
+}
+
+bool Collision::_boxCollide(Box &a, Box &b)
+{
+    sf::FloatRect a_bound = a.property.getGlobalBounds();
+    sf::FloatRect b_bound = b.property.getGlobalBounds();
+    float a_left = a_bound.left;
+    float a_right = a_bound.left + a_bound.width;
+    float b_left = b_bound.left;
+    float b_right = b_bound.left + b_bound.width;
+
+    float a_bottom = a_bound.top + a_bound.height;
+    float a_top = a_bound.top;
+    float b_bottom = b_bound.top + b_bound.height;
+    float b_top = b_bound.top;
+
+    return this->_boxOverlapping(a_left, a_right, b_left, b_right) && this->_boxOverlapping(a_top, a_bottom, b_top, b_bottom);
+}
+
+bool Collision::_circleCollide(Circle &a, Circle &b)
+{
+    return _circleOverlapping(a.property.getRadius(), b.property.getRadius(), a.property.getPosition(), b.property.getPosition());
+}
+bool Collision::_circlePointCollide(Circle &a, sf::Vector2f point)
+{
+    sf::Vector2f displacement = Math::_displacement(a.property.getPosition(), point);
+    float distance = Math::_length(displacement);
+    return distance <= a.property.getRadius();
+}
+bool Collision::_circleWindowCollide(Circle &a, Line l1, Line l2, Line l3, Line l4)
+{
+    return this->_circleSegmentOverlapping(a, l1) || this->_circleSegmentOverlapping(a, l2) || this->_circleSegmentOverlapping(a, l3) || this->_circleSegmentOverlapping(a, l4);
+}
+bool Collision::_circleBoxCollide(Circle &circle, Box &box)
+{
+    sf::Vector2f clamped = this->clampOnRectangle(circle.property.getPosition(), box);
+    tempo_position = clamped;
+    return this->_circlePointCollide(circle, clamped);
+}
 // penetration and collision resolution
 // circle-circle penetration resoultion
 void Collision::_circlePenetrationResolution(Circle &a, Circle &b)
@@ -110,55 +156,6 @@ void Collision::_circleBoxPenetrationResolution(Circle &circle, Box &box)
     sf::Vector2f penetration_resolution_vector = normal * penetration_depth;
     this->a_position = penetration_resolution_vector;
     this->b_position = -penetration_resolution_vector;
-}
-
-// circle-box collision resolution
-
-// actual collision functions
-bool Collision::_linesCollide(Line &a, Line &b)
-{
-    if (Math::_parallel(a.direction, b.direction))
-        return false;
-    else
-        return true;
-}
-
-bool Collision::_boxCollide(Box &a, Box &b)
-{
-    sf::FloatRect a_bound = a.property.getGlobalBounds();
-    sf::FloatRect b_bound = b.property.getGlobalBounds();
-    float a_left = a_bound.left;
-    float a_right = a_bound.left + a_bound.width;
-    float b_left = b_bound.left;
-    float b_right = b_bound.left + b_bound.width;
-
-    float a_bottom = a_bound.top + a_bound.height;
-    float a_top = a_bound.top;
-    float b_bottom = b_bound.top + b_bound.height;
-    float b_top = b_bound.top;
-
-    return this->_boxOverlapping(a_left, a_right, b_left, b_right) && this->_boxOverlapping(a_top, a_bottom, b_top, b_bottom);
-}
-
-bool Collision::_circleCollide(Circle &a, Circle &b)
-{
-    return _circleOverlapping(a.property.getRadius(), b.property.getRadius(), a.property.getPosition(), b.property.getPosition());
-}
-bool Collision::_circlePointCollide(Circle &a, sf::Vector2f point)
-{
-    sf::Vector2f displacement = Math::_displacement(a.property.getPosition(), point);
-    float distance = Math::_length(displacement);
-    return distance <= a.property.getRadius();
-}
-bool Collision::_circleWindowCollide(Circle &a, Line l1, Line l2, Line l3, Line l4)
-{
-    return this->_circleSegmentOverlapping(a, l1) || this->_circleSegmentOverlapping(a, l2) || this->_circleSegmentOverlapping(a, l3) || this->_circleSegmentOverlapping(a, l4);
-}
-bool Collision::_circleBoxCollide(Circle &circle, Box &box)
-{
-    sf::Vector2f clamped = this->clampOnRectangle(circle.property.getPosition(), box);
-    tempo_position = clamped;
-    return this->_circlePointCollide(circle, clamped);
 }
 
 //...
