@@ -24,7 +24,7 @@ bool Collision::_circleSegmentOverlapping(Circle &a, Line &l)
     }
 
     sf::Vector2f d = l.direction - l.base;
-    sf::Vector2f lc = a.circle.getPosition() - l.base;
+    sf::Vector2f lc = a.property.getPosition() - l.base;
     sf::Vector2f p = Math::_project(lc, d);
     nearest_point = l.base + p;
 
@@ -36,16 +36,16 @@ bool Collision::_circleSegmentOverlapping(Circle &a, Line &l)
 // circle-circle penetration resoultion
 void Collision::_circlePenetrationResolution(Circle &a, Circle &b)
 {
-    sf::Vector2f normal = Math::_displacement(a.circle.getPosition(), b.circle.getPosition());
+    sf::Vector2f normal = Math::_displacement(a.property.getPosition(), b.property.getPosition());
     float distance = Math::_length(normal);
-    float penetration_depth = (a.circle.getRadius() + b.circle.getRadius()) - distance;
+    float penetration_depth = (a.property.getRadius() + b.property.getRadius()) - distance;
     sf::Vector2f penetration_resolution_vector = Math::_normalize(normal) * penetration_depth / (a.inverseMass + b.inverseMass);
     this->a_position = penetration_resolution_vector * a.inverseMass;
     this->b_position = -penetration_resolution_vector * b.inverseMass;
 }
 void Collision::_circleCollisionResolution(Circle &a, Circle &b)
 {
-    sf::Vector2f normal = Math::_displacement(a.circle.getPosition(), b.circle.getPosition());
+    sf::Vector2f normal = Math::_displacement(a.property.getPosition(), b.property.getPosition());
     normal = Math::_normalize(normal);
     sf::Vector2f relative_velocity = Math::_displacement(a.velocity, b.velocity);
     float separating_velocity = Math::_dot(relative_velocity, normal);
@@ -57,15 +57,15 @@ void Collision::_circleCollisionResolution(Circle &a, Circle &b)
 // circle-point penetration resolution
 void Collision::_circlePointPenetrationResolution(Circle &a, sf::Vector2f &p)
 {
-    sf::Vector2f normal = Math::_displacement(a.circle.getPosition(), p);
+    sf::Vector2f normal = Math::_displacement(a.property.getPosition(), p);
     float distance = Math::_length(normal);
-    float penetration_distance = a.circle.getRadius() - distance;
+    float penetration_distance = a.property.getRadius() - distance;
     sf::Vector2f penetration_resolution_vector = Math::_normalize(normal) * penetration_distance / 2.f;
     this->a_position = penetration_resolution_vector;
 }
 void Collision::_circlePointCollisionResolution(Circle &circle, sf::Vector2f &point)
 {
-    sf::Vector2f normal = Math::_displacement(circle.circle.getPosition(), point);
+    sf::Vector2f normal = Math::_displacement(circle.property.getPosition(), point);
     normal = Math::_normalize(normal);
     sf::Vector2f relative_velocity = Math::_displacement(circle.velocity, sf::Vector2f(0.f, 0.f));
     float separating_velocity = Math::_dot(relative_velocity, normal);
@@ -76,10 +76,10 @@ void Collision::_circlePointCollisionResolution(Circle &circle, sf::Vector2f &po
 // box-box penetration resoultion
 void Collision::_boxPenetrationResolution(Box &a, Box &b)
 {
-    sf::Vector2f normal = a.box.getPosition() - b.box.getPosition();
+    sf::Vector2f normal = a.property.getPosition() - b.property.getPosition();
     float distance = Math::_length(normal);
-    float a_x_half = a.box.getSize().x / 2.f;
-    float b_x_half = b.box.getSize().x / 2.f;
+    float a_x_half = a.property.getSize().x / 2.f;
+    float b_x_half = b.property.getSize().x / 2.f;
     float overlap_x = normal.x - (a_x_half + b_x_half);
     float overlap_y = normal.y - (a_x_half + b_x_half);
     float penetration_depth = min(overlap_x, overlap_y);
@@ -91,7 +91,7 @@ void Collision::_boxPenetrationResolution(Box &a, Box &b)
 // box-box collision resolution
 void Collision::_boxCollisionResolution(Box &a, Box &b)
 {
-    sf::Vector2f normal = a.box.getPosition() - b.box.getPosition();
+    sf::Vector2f normal = a.property.getPosition() - b.property.getPosition();
     normal = Math::_normalize(normal);
     sf::Vector2f relative_velocity = a.velocity - b.velocity;
     float separating_velocity = Math::_dot(relative_velocity, normal);
@@ -102,11 +102,11 @@ void Collision::_boxCollisionResolution(Box &a, Box &b)
 // circle-box penetration resolution
 void Collision::_circleBoxPenetrationResolution(Circle &circle, Box &box)
 {
-    sf::Vector2f normal = circle.circle.getPosition() - box.box.getPosition();
+    sf::Vector2f normal = circle.property.getPosition() - box.property.getPosition();
     normal = Math::_normalize(normal);
-    sf::Vector2f nearest_position = this->clampOnRectangle(circle.circle.getPosition(), box);
-    float distance = Math::_length(circle.circle.getPosition() - nearest_position);
-    float penetration_depth = circle.circle.getRadius() - distance;
+    sf::Vector2f nearest_position = this->clampOnRectangle(circle.property.getPosition(), box);
+    float distance = Math::_length(circle.property.getPosition() - nearest_position);
+    float penetration_depth = circle.property.getRadius() - distance;
     sf::Vector2f penetration_resolution_vector = normal * penetration_depth;
     this->a_position = penetration_resolution_vector;
     this->b_position = -penetration_resolution_vector;
@@ -125,8 +125,8 @@ bool Collision::_linesCollide(Line &a, Line &b)
 
 bool Collision::_boxCollide(Box &a, Box &b)
 {
-    sf::FloatRect a_bound = a.box.getGlobalBounds();
-    sf::FloatRect b_bound = b.box.getGlobalBounds();
+    sf::FloatRect a_bound = a.property.getGlobalBounds();
+    sf::FloatRect b_bound = b.property.getGlobalBounds();
     float a_left = a_bound.left;
     float a_right = a_bound.left + a_bound.width;
     float b_left = b_bound.left;
@@ -142,13 +142,13 @@ bool Collision::_boxCollide(Box &a, Box &b)
 
 bool Collision::_circleCollide(Circle &a, Circle &b)
 {
-    return _circleOverlapping(a.circle.getRadius(), b.circle.getRadius(), a.circle.getPosition(), b.circle.getPosition());
+    return _circleOverlapping(a.property.getRadius(), b.property.getRadius(), a.property.getPosition(), b.property.getPosition());
 }
 bool Collision::_circlePointCollide(Circle &a, sf::Vector2f point)
 {
-    sf::Vector2f displacement = Math::_displacement(a.circle.getPosition(), point);
+    sf::Vector2f displacement = Math::_displacement(a.property.getPosition(), point);
     float distance = Math::_length(displacement);
-    return distance <= a.circle.getRadius();
+    return distance <= a.property.getRadius();
 }
 bool Collision::_circleWindowCollide(Circle &a, Line l1, Line l2, Line l3, Line l4)
 {
@@ -156,7 +156,7 @@ bool Collision::_circleWindowCollide(Circle &a, Line l1, Line l2, Line l3, Line 
 }
 bool Collision::_circleBoxCollide(Circle &circle, Box &box)
 {
-    sf::Vector2f clamped = this->clampOnRectangle(circle.circle.getPosition(), box);
+    sf::Vector2f clamped = this->clampOnRectangle(circle.property.getPosition(), box);
     tempo_position = clamped;
     return this->_circlePointCollide(circle, clamped);
 }
@@ -165,7 +165,7 @@ bool Collision::_circleBoxCollide(Circle &circle, Box &box)
 sf::Vector2f Collision::clampOnRectangle(sf::Vector2f point, Box box)
 {
     sf::Vector2f clamp;
-    clamp.x = Math::_clampOnRange(point.x, box.box.getGlobalBounds().left, box.box.getGlobalBounds().left + box.box.getGlobalBounds().width);
-    clamp.y = Math::_clampOnRange(point.y, box.box.getGlobalBounds().top, box.box.getGlobalBounds().top + box.box.getGlobalBounds().height);
+    clamp.x = Math::_clampOnRange(point.x, box.property.getGlobalBounds().left, box.property.getGlobalBounds().left + box.property.getGlobalBounds().width);
+    clamp.y = Math::_clampOnRange(point.y, box.property.getGlobalBounds().top, box.property.getGlobalBounds().top + box.property.getGlobalBounds().height);
     return clamp;
 }

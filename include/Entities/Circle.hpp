@@ -5,7 +5,7 @@
 class Circle : public GameObject
 {
 public:
-    sf::CircleShape circle;
+    sf::CircleShape property;
 
 private:
     void initVariables();

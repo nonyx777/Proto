@@ -5,7 +5,7 @@
 class Box : public GameObject
 {
     public:
-        sf::RectangleShape box;
+        sf::RectangleShape property;
     private:
         void initVariables();
     public:
