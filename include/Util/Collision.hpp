@@ -7,12 +7,6 @@ using namespace std;
 
 class Collision
 {
-private:
-    // instantiating objects
-    Circle circle;
-    Line line;
-    Box box;
-
 public:
     // storing vital positions
     sf::Vector2f a_position;
