@@ -65,3 +65,73 @@ SCENARIO("Overlapping")
         }
     }
 }
+
+SCENARIO("Collision")
+{
+    Collision collision;
+
+    GIVEN("Two boxes")
+    {
+        Box a = Box();
+        Box b = Box();
+        WHEN("Two Boxes Collide")
+        {
+            a.property.setPosition(sf::Vector2f(50.f, 50.f));
+            b.property.setPosition(sf::Vector2f(50.f, 55.f));
+
+            bool collide = collision._boxCollide(a, b);
+            THEN("Collision flag should be true")
+            {
+                REQUIRE(collide == true);
+            }
+        }
+    }
+
+    GIVEN("Two Circles")
+    {
+        Circle a = Circle(10.f);
+        Circle b = Circle(10.f);
+        WHEN("Two Circles Collide")
+        {
+            a.property.setPosition(sf::Vector2f(50.f, 50.f));
+            b.property.setPosition(sf::Vector2f(50.f, 60.f));
+            bool collide = collision._circleCollide(a, b);
+            THEN("Collision flag should be true")
+            {
+                REQUIRE(collide == true);
+            }
+        }
+    }
+
+    GIVEN("A Circle and a Point")
+    {
+        Circle circle = Circle(10.f);
+        sf::Vector2f point = sf::Vector2f(50.f, 50.f);
+        WHEN("A Circle and a Point Collide")
+        {
+            circle.property.setPosition(sf::Vector2f(60.f, 50.f));
+            bool collide = collision._circlePointCollide(circle, point);
+            THEN("Collision flag should be true")
+            {
+                REQUIRE(collide == true);
+            }
+        }
+    }
+
+    GIVEN("A Circle and a Box")
+    {
+        Circle circle = Circle(10.f);
+        Box box = Box();
+        WHEN("A Circle and a Box Collide")
+        {
+            circle.property.setPosition(sf::Vector2f(50.f, 50.f));
+            box.property.setPosition(sf::Vector2f(50.f, 60.f));
+
+            bool collide = collision._circleBoxCollide(circle, box);
+            THEN("Collision flag should be true")
+            {
+                REQUIRE(collide == true);
+            }
+        }
+    }
+}
