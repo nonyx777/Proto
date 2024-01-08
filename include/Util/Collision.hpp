@@ -27,21 +27,21 @@ public:
     bool _boxLineOverlapping();
     bool _circleSegmentOverlapping(Circle &a, Line &l);
     // penetretion and collision resolution
-    // circle
+        //circle
     void _circlePenetrationResolution(Circle &a, Circle &b);
     void _circleCollisionResolution(Circle &a, Circle &b);
     void _circlePointPenetrationResolution(Circle &circle, sf::Vector2f &p);
     void _circlePointCollisionResolution(Circle &circle, sf::Vector2f &point);
-    // box
+        //box
     void _boxPenetrationResolution(Box &a, Box &b);
     void _boxCollisionResolution(Box &a, Box &b);
-    // circle - box
+        //circle - box
     void _circleBoxPenetrationResolution(Circle &circle, Box &box);
     void _circleBoxCollisionResolution(Circle &circle, Box &box);
 
     // actual collision function
-    bool _linesCollide(Line &a, Line &b);
-    bool _boxCollide(Box &a, Box &b);
+     bool _linesCollide(Line &a, Line &b);
+     bool _boxCollide(Box &a, Box &b);
     bool _circleCollide(Circle &a, Circle &b);
     bool _boxLineCollide();
     bool _circlePointCollide(Circle &a, sf::Vector2f point);
