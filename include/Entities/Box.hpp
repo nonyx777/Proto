@@ -6,6 +6,8 @@ class Box : public GameObject
 {
     public:
         sf::RectangleShape box;
+    private:
+        void initVariables();
     public:
         Box();
 
