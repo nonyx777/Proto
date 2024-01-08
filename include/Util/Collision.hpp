@@ -9,7 +9,6 @@ class Collision
 {
 private:
     // instantiating objects
-    Math math;
     Circle circle;
     Line line;
     Box box;
