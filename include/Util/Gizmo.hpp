@@ -13,5 +13,5 @@ public:
 
 public:
     Line drawRay(sf::Vector2f start_position, sf::Vector2f direction, float length);
-    Circle drawSphere(sf::Vector2f position, float radius, sf::Color color);
+    Circle drawCircle(sf::Vector2f position, float radius, sf::Color color);
 };

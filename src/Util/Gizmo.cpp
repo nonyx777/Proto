@@ -18,7 +18,7 @@ Line Gizmo::drawRay(sf::Vector2f start_position, sf::Vector2f direction, float l
     return this->line;
 }
 
-Circle Gizmo::drawSphere(sf::Vector2f position, float radius, sf::Color color)
+Circle Gizmo::drawCircle(sf::Vector2f position, float radius, sf::Color color)
 {
     this->circle.property.setRadius(radius);
     this->circle.property.setPosition(position);
