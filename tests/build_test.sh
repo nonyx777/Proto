@@ -1,1 +1,1 @@
-g++ main_test.cpp ../src/Util/Math.cpp ../src/Entities/Box.cpp ../src/Entities/Circle.cpp ../src/Entities/Line.cpp ../src/Util/Collision.cpp -o build/test -lsfml-graphics
+g++ main_test.cpp ../src/Util/Math.cpp ../src/Entities/Box.cpp ../src/Entities/Circle.cpp ../src/Entities/Line.cpp ../src/Util/Collision.cpp ../src/Util/Gizmo.cpp -o build/test -lsfml-graphics

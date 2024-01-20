@@ -3,3 +3,4 @@
 
 #include "math_test.cpp"
 #include "collision_test.cpp"
+#include "gizmo_test.cpp"
