@@ -21,7 +21,7 @@ TEST_CASE("Math Tests")
         REQUIRE(expected_rad == Approx(radian));
     }
 
-    SECTION("Vector operations")
+    SECTION("Vector Operations")
     {
         sf::Vector2f vec1 = sf::Vector2f(0.f, 2.f);
         sf::Vector2f vec2 = sf::Vector2f(1.f, 1.f);
@@ -30,6 +30,10 @@ TEST_CASE("Math Tests")
         REQUIRE(Math::_displacement(vec2, vec1) == sf::Vector2f(1.f, -1.f));
         REQUIRE(Math::_normalize(vec1) == sf::Vector2f(0.f, 1.f));
         REQUIRE(Math::_dot(vec1, vec2) == 2.f);
+    }
+
+    SECTION("Utility Operations")
+    {
         REQUIRE(Math::_clampOnRange(4.f, 2.f, 3.f) == 3.f);
     }
 }
