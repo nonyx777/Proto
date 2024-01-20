@@ -1,16 +1,21 @@
 #pragma once
 
 #include "../GameObject/GameObject.hpp"
+#include "../Entity/Entity.hpp"
 
-class Box : public GameObject
+class Box : public GameObject, public Entity
 {
-    public:
-        sf::RectangleShape property;
-    private:
-        void initVariables();
-    public:
-        Box();
+public:
+    sf::RectangleShape property;
 
-        void update() override;
-        void render(sf::RenderTarget* target) override;
+private:
+    void initVariables();
+
+public:
+    Box();
+
+    void integrate() override;
+
+    void update() override;
+    void render(sf::RenderTarget *target) override;
 };
