@@ -4,7 +4,6 @@ Scene *Scene::instance = nullptr;
 
 Scene::Scene()
 {
-    //....
 }
 
 Scene::~Scene()
@@ -22,10 +21,8 @@ Scene *Scene::getInstance()
 
 void Scene::update()
 {
-    //....
 }
 
 void Scene::render(sf::RenderTarget *target)
 {
-    
 }

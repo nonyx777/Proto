@@ -11,5 +11,5 @@ public:
     float elasticity;
 
 public:
-    virtual void integrate();
+    void integrate(sf::Shape* shape);
 };

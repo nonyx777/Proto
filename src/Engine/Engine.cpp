@@ -45,6 +45,8 @@ void Engine::update()
     this->pollEvent();
     this->mouse_position = sf::Mouse::getPosition(*this->window);
     this->mouse_position_view = this->window->mapPixelToCoords(this->mouse_position);
+
+    scene->update();
 }
 void Engine::render(sf::RenderTarget *target)
 {

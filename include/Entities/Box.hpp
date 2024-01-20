@@ -14,8 +14,6 @@ private:
 public:
     Box();
 
-    void integrate() override;
-
     void update() override;
     void render(sf::RenderTarget *target) override;
 };

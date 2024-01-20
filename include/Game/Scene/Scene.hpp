@@ -8,7 +8,6 @@ class Scene : public GameObject
 {
 private:
     static Scene *instance;
-    Gizmo gizmo;
 
 private:
     Scene();

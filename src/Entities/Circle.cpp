@@ -9,6 +9,7 @@ Circle::Circle(float radius)
 {
     this->initVariables();
     this->property.setRadius(radius);
+    this->property.setOrigin(sf::Vector2f(radius, radius));
 }
 
 void Circle::initVariables()
@@ -19,7 +20,7 @@ void Circle::initVariables()
 
 void Circle::update()
 {
-    //....
+    this->integrate(&this->property);
 }
 
 void Circle::render(sf::RenderTarget *target)
