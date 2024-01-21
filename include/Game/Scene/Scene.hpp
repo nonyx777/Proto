@@ -3,11 +3,13 @@
 #include "../../GameObject/GameObject.hpp"
 #include "../../Entities/Entities.hpp"
 #include "../../Util/Gizmo.hpp"
+#include "../../../src/Util/Grid.cpp"
 
 class Scene : public GameObject
 {
 private:
     static Scene *instance;
+    std::vector<std::vector<Box>> grid;
 
 private:
     Scene();

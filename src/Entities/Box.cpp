@@ -11,7 +11,7 @@ Box::Box(uint size, sf::Vector2f position)
     this->property.setPosition(position);
     this->property.setFillColor(sf::Color::Transparent);
     this->property.setOutlineColor(sf::Color::White);
-    this->property.setOutlineThickness(1.f);
+    this->property.setOutlineThickness(0.5f);
 }
 
 void Box::initVariables()
