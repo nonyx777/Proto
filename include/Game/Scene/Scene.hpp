@@ -3,7 +3,7 @@
 #include "../../GameObject/GameObject.hpp"
 #include "../../Entities/Entities.hpp"
 #include "../../Util/Gizmo.hpp"
-#include "../../../src/Util/Grid.cpp"
+#include "../../Util/Grid.hpp"
 
 class Scene : public GameObject
 {

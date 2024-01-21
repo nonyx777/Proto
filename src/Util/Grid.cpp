@@ -1,6 +1,6 @@
-#include "../../include/Entities/Entities.hpp"
+#include "../../include/Util/Grid.hpp"
 
-static void configureGrid(uint size, std::vector<std::vector<Box>>* grid)
+void configureGrid(uint size, std::vector<std::vector<Box>>* grid)
 {
     std::vector<std::vector<Box>> cells;
     uint row = 600/size;
