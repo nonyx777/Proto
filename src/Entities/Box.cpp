@@ -5,6 +5,13 @@ Box::Box()
     this->initVariables();
 }
 
+Box::Box(uint size, sf::Vector2f position)
+{
+    this->property.setSize(sf::Vector2f(size, size));
+    this->property.setFillColor(sf::Color::Transparent);
+    this->property.setOutlineColor(sf::Color::White);
+}
+
 void Box::initVariables()
 {
     this->inverseMass = this->mass == 0.f ? 100000.f : 1.f / this->mass;
