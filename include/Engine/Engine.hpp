@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include "../GameObject/GameObject.hpp"
 #include "../Game/Scene/Scene.hpp"
+#include "../../library/UI/imgui.h"
+#include "../../library/UI/imgui-SFML.h"
 
 using namespace std;
 
@@ -22,6 +24,10 @@ private:
     sf::Vector2i mouse_position;
     sf::Vector2f mouse_position_view;
 
+    //ui related
+    sf::Clock deltaClock;
+    sf::Time deltaTime;
+
 private:
     Scene *scene = Scene::getInstance();
 
@@ -35,4 +41,10 @@ public:
     void render();
 
     const bool running() const;
+
+    //ui related
+    void initImGui();
+    void eventImGui();
+    void updateImGui();
+    void renderImGui();
 };
