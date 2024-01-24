@@ -21,6 +21,7 @@ Engine::Engine()
 }
 Engine::~Engine()
 {
+    ImGui::SFML::Shutdown();
     delete this->window;
 }
 
@@ -64,6 +65,7 @@ void Engine::render()
     scene->render(this->window);
     this->renderImGui();
     this->window->display();
+    // this->configurationWindow();
 }
 
 void Engine::initImGui()

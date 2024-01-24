@@ -15,8 +15,11 @@ private:
     void initVariables();
     void initWindow();
 
+public:
     // window variables
     sf::RenderWindow *window;
+
+private:
     sf::VideoMode video_mode;
     sf::Event event;
 
@@ -24,7 +27,7 @@ private:
     sf::Vector2i mouse_position;
     sf::Vector2f mouse_position_view;
 
-    //ui related
+    // ui related
     sf::Clock deltaClock;
     sf::Time deltaTime;
 
@@ -42,7 +45,7 @@ public:
 
     const bool running() const;
 
-    //ui related
+    // ui related
     void initImGui();
     void eventImGui();
     void updateImGui();
