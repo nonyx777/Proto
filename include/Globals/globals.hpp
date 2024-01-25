@@ -1,4 +1,4 @@
 #pragma once
 
-extern uint window_width;
-extern uint widnow_height;
+extern unsigned int window_width;
+extern unsigned int widnow_height;
