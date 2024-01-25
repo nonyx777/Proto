@@ -7,7 +7,6 @@ sf::Event event;
 
 int main()
 {
-
     // Create a second SFML window for ImGui rendering
     ConfigWindow configWindow;
     while (configWindow.running())

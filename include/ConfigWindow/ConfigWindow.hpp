@@ -4,6 +4,7 @@
 #include "../../library/UI/imgui.h"
 #include "../../library/UI/imgui-SFML.h"
 #include "../Globals/globals.hpp"
+#include "../Util/Math.hpp"
 
 class ConfigWindow : public GameObject
 {
