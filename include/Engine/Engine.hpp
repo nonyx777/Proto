@@ -5,6 +5,7 @@
 #include "../Game/Scene/Scene.hpp"
 #include "../../library/UI/imgui.h"
 #include "../../library/UI/imgui-SFML.h"
+#include "../Globals/globals.hpp"
 
 using namespace std;
 

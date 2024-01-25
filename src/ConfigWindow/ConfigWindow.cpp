@@ -49,7 +49,8 @@ void ConfigWindow::update()
 
     this->updateImGui();
     ImGui::Begin("Paramters");
-    ImGui::Text("incoming");
+    ImGui::InputInt("Window Height ", &GLOBAL::window_height);
+    ImGui::InputInt("Window Width ", &GLOBAL::window_width);
     ImGui::End();
 }
 

@@ -3,6 +3,7 @@
 #include "../GameObject/GameObject.hpp"
 #include "../../library/UI/imgui.h"
 #include "../../library/UI/imgui-SFML.h"
+#include "../Globals/globals.hpp"
 
 class ConfigWindow : public GameObject
 {

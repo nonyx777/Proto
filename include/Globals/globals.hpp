@@ -1,4 +1,7 @@
 #pragma once
 
-extern unsigned int window_width;
-extern unsigned int widnow_height;
+namespace GLOBAL
+{
+    inline int window_width = 600;
+    inline int window_height = 600;
+}
