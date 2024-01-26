@@ -50,11 +50,21 @@ void ConfigWindow::update()
     this->updateImGui();
     ImGui::Begin("Parameters", nullptr, ImGuiWindowFlags_NoMove);
     ImGui::SetWindowSize(ImVec2(this->window->getSize()));
-    ImGui::InputInt("Window Height ", &GLOBAL::window_height);
-    ImGui::InputInt("Window Width ", &GLOBAL::window_width);
+
+    //configure engine window size
+    ImGui::Text("Window Size");
+    ImGui::InputInt("Window Height", &GLOBAL::window_height);
+    ImGui::InputInt("Window Width", &GLOBAL::window_width);
 
     GLOBAL::window_height = Math::_clampOnRange(GLOBAL::window_height, 400, 1000);
     GLOBAL::window_width = Math::_clampOnRange(GLOBAL::window_width, 400, 1000);
+
+    //Todo: configure grid
+    ImGui::Text("Grid Configuration");
+    ImGui::InputInt("Cell Size", &GLOBAL::cell_size);
+    if(ImGui::Button("Display Grid"))
+        GLOBAL::display_grid = !GLOBAL::display_grid;
+    ImGui::Text("Display Grid: %s", GLOBAL::display_grid ? "True" : "False");
 
     ImGui::End();
 }
