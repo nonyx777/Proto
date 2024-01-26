@@ -48,7 +48,7 @@ void ConfigWindow::update()
     this->pollEvent();
 
     this->updateImGui();
-    ImGui::Begin("Parameters");
+    ImGui::Begin("Parameters", nullptr, ImGuiWindowFlags_NoMove);
     ImGui::SetWindowSize(ImVec2(this->window->getSize()));
     ImGui::InputInt("Window Height ", &GLOBAL::window_height);
     ImGui::InputInt("Window Width ", &GLOBAL::window_width);
