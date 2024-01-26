@@ -3,8 +3,8 @@
 void configureGrid(uint size, std::vector<std::vector<Box>>* grid)
 {
     std::vector<std::vector<Box>> cells;
-    uint row = 600/size;
-    uint column = 600/size;
+    uint row = GLOBAL::window_height/size;
+    uint column = GLOBAL::window_width/size;
 
     for(uint i = 0; i < row; i++){
         std::vector<Box> row_cells;
@@ -16,6 +16,6 @@ void configureGrid(uint size, std::vector<std::vector<Box>>* grid)
             //should i manually delete the box, or is it okay?
             row_cells.push_back(box);
         }
-        (*grid).push_back(row_cells);
+        grid->push_back(row_cells);
     }
 }
