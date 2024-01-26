@@ -6,8 +6,8 @@ void ConfigWindow::initVariables()
 }
 void ConfigWindow::initWindow()
 {
-    this->video_mode.width = 200;
-    this->video_mode.height = 400;
+    this->video_mode.width = GLOBAL::config_window_width;
+    this->video_mode.height = GLOBAL::config_window_height;
     this->window = new sf::RenderWindow(this->video_mode, "Configuration Window", sf::Style::Titlebar | sf::Style::Close);
     this->window->setFramerateLimit(60);
 }
@@ -48,7 +48,8 @@ void ConfigWindow::update()
     this->pollEvent();
 
     this->updateImGui();
-    ImGui::Begin("Paramters");
+    ImGui::Begin("Parameters");
+    ImGui::SetWindowSize(ImVec2(this->window->getSize()));
     ImGui::InputInt("Window Height ", &GLOBAL::window_height);
     ImGui::InputInt("Window Width ", &GLOBAL::window_width);
 
