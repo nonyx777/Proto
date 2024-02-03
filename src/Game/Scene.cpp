@@ -1,4 +1,4 @@
-#include "../../../include/Game/Scene/Scene.hpp"
+#include "../../include/Game/Scene.hpp"
 
 Scene *Scene::instance = nullptr;
 

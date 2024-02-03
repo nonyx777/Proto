@@ -1,5 +1,5 @@
-#include "../include/Engine/Engine.hpp"
-#include "../include/ConfigWindow/ConfigWindow.hpp"
+#include "../include/Engine.hpp"
+#include "../include/ConfigWindow.hpp"
 #include "../library/UI/imgui.h"
 #include "../library/UI/imgui-SFML.h"
 

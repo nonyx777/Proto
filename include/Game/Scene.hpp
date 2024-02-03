@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../../GameObject/GameObject.hpp"
-#include "../../Entities/Entities.hpp"
-#include "../../Util/Gizmo.hpp"
-#include "../../Util/Grid.hpp"
-#include "../../Globals/globals.hpp"
+#include "../GameObject.hpp"
+#include "../Entities/Entities.hpp"
+#include "../Util/Gizmo.hpp"
+#include "../Util/Grid.hpp"
+#include "../globals.hpp"
 
 class Scene : public GameObject
 {

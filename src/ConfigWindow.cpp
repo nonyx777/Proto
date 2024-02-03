@@ -1,4 +1,4 @@
-#include "../../include/ConfigWindow/ConfigWindow.hpp"
+#include "../include/ConfigWindow.hpp"
 
 void ConfigWindow::initVariables()
 {

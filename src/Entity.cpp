@@ -1,4 +1,4 @@
-#include "../../include/Entity/Entity.hpp"
+#include "../include/Entity.hpp"
 
 void Entity::integrate(sf::Shape *shape)
 {

@@ -1,4 +1,4 @@
-#include "../../include/Engine/Engine.hpp"
+#include "../include/Engine.hpp"
 
 // defining initializer functions
 void Engine::initVariables()

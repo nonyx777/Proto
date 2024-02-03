@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../GameObject/GameObject.hpp"
-#include "../Entity/Entity.hpp"
+#include "../GameObject.hpp"
+#include "../Entity.hpp"
 
 class Box : public GameObject, public Entity
 {

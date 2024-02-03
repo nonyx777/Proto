@@ -1,6 +1,6 @@
-#include "../GameObject/GameObject.hpp"
-#include "../../include/Entities/Entities.hpp"
-#include "../../include/Util/Math.hpp"
+#include "../GameObject.hpp"
+#include "../Entities/Entities.hpp"
+#include "Math.hpp"
 
 class Gizmo
 {
