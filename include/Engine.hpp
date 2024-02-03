@@ -6,49 +6,21 @@
 #include "../library/UI/imgui.h"
 #include "../library/UI/imgui-SFML.h"
 #include "globals.hpp"
+#include "Window.hpp"
 
 using namespace std;
 
-class Engine : public GameObject
+class Engine : public Window
 {
-private:
+public:
     // initializer functions
-    void initVariables();
-    void initWindow();
+    void initWindow() override;
 
 public:
-    // window variables
-    sf::RenderWindow *window;
-
-private:
-    sf::VideoMode video_mode;
-    sf::Event event;
-
-    // mouse position
-    sf::Vector2i mouse_position;
-    sf::Vector2f mouse_position_view;
-
-    // ui related
-    sf::Clock deltaClock;
-    sf::Time deltaTime;
-
-private:
-    Scene *scene = Scene::getInstance();
-
-public:
-    Engine();
-    ~Engine();
-
-    void pollEvent();
     void update() override;
     void render(sf::RenderTarget *target) override;
     void render();
 
-    const bool running() const;
-
-    // ui related
-    void initImGui();
-    void eventImGui();
-    void updateImGui();
-    void renderImGui();
+private:
+    Scene *scene = Scene::getInstance();
 };

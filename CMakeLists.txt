@@ -19,3 +19,5 @@ target_include_directories(proto PUBLIC
 target_link_libraries(proto PRIVATE 
     -lsfml-window -lsfml-graphics -lsfml-system
     ${OPENGL_gl_LIBRARY})
+
+# set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")

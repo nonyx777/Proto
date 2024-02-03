@@ -12,7 +12,7 @@ int main()
     while (configWindow.running())
     {
         configWindow.update();
-        configWindow.render();
+        configWindow.winRender();
     }
 
     Engine engine;
