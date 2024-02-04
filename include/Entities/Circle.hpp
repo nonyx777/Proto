@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../GameObject.hpp"
-#include "../Entity.hpp"
+#include "../Rigidbody.hpp"
 
-class Circle : public GameObject, public Entity
+class Circle : public GameObject, public Rigidbody
 {
 public:
     sf::CircleShape property;

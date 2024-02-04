@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../GameObject.hpp"
-#include "../Entity.hpp"
+#include "../Rigidbody.hpp"
 
-class Box : public GameObject, public Entity
+class Box : public GameObject, public Rigidbody
 {
 public:
     sf::RectangleShape property;

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../GameObject.hpp"
-#include "../Entity.hpp"
+#include "../Rigidbody.hpp"
 
-class Line : public GameObject, public Entity
+class Line : public GameObject, public Rigidbody
 {
 public:
     sf::Vector2f base;

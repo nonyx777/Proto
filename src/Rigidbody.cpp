@@ -1,6 +1,6 @@
-#include "../include/Entity.hpp"
+#include "../include/Rigidbody.hpp"
 
-void Entity::integrate(sf::Shape *shape)
+void Rigidbody::integrate(sf::Shape *shape)
 {
     this->velocity += this->acceleration;
     shape->move(this->velocity);

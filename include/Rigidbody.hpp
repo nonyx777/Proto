@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class Entity
+class Rigidbody
 {
 public:
     sf::Vector2f velocity;
