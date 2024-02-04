@@ -15,8 +15,6 @@ void Window::initWindow()
 Window::Window()
 {
     this->initVariables();
-    this->initWindow();
-    this->initImGui();
 }
 Window::~Window()
 {

@@ -17,6 +17,8 @@ public:
     void initWindow() override;
 
 public:
+    Engine();
+
     void update() override;
     void render(sf::RenderTarget *target) override;
     void render();

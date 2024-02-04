@@ -14,6 +14,8 @@ public:
     void initWindow() override;
 
 public:
+    ConfigWindow();
+
     void update() override;
     void render(sf::RenderTarget *target) override;
 };

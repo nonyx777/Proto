@@ -1,5 +1,10 @@
 #include "../include/Engine.hpp"
 
+Engine::Engine() : Window()
+{
+    this->initWindow();
+    this->initImGui();
+}
 
 void Engine::initWindow()
 {
