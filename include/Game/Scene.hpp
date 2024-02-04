@@ -4,7 +4,7 @@
 #include "../Entities/Entities.hpp"
 #include "../Util/Gizmo.hpp"
 #include "../Util/Grid.hpp"
-#include "../globals.hpp"
+#include "../Globals.hpp"
 
 class Scene : public GameObject
 {

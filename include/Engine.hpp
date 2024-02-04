@@ -1,11 +1,6 @@
 #pragma once
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include "GameObject.hpp"
 #include "./Game/Scene.hpp"
-#include "../library/UI/imgui.h"
-#include "../library/UI/imgui-SFML.h"
-#include "globals.hpp"
 #include "Window.hpp"
 
 using namespace std;

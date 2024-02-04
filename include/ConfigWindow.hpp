@@ -1,9 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "GameObject.hpp"
-#include "../library/UI/imgui.h"
-#include "../library/UI/imgui-SFML.h"
-#include "globals.hpp"
 #include "./Util/Math.hpp"
 #include "Window.hpp"
 
