@@ -8,10 +8,14 @@ void Rigidbody::Euler::integrate(sf::Shape *shape)
     shape->move(rbAttr.velocity);
 
     rbAttr.acceleration = sf::Vector2f(0.f, 0.f);
-    rbAttr.velocity = sf::Vector2f(0.f, 0.f);
 }
 
 void Rigidbody::Verlet::integrate(sf::Shape *shape)
 {
-    //Todo
+    current = shape->getPosition();
+    rbAttr.velocity = (current - previous) + rbAttr.acceleration;
+    shape->move(rbAttr.velocity);
+    previous = current;
+
+    rbAttr.acceleration = sf::Vector2f(0.f, 0.f);
 }

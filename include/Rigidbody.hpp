@@ -19,6 +19,7 @@ namespace Rigidbody
 
     namespace Verlet
     {
+        sf::Vector2f previous, current;
         void integrate(sf::Shape *shape);
     }
 }
