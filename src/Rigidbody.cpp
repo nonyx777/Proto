@@ -1,10 +1,17 @@
 #include "../include/Rigidbody.hpp"
 
-void Rigidbody::integrate(sf::Shape *shape)
-{
-    this->velocity += this->acceleration;
-    shape->move(this->velocity);
+Rigidbody::RigidbodyAttr rbAttr;
 
-    this->acceleration = sf::Vector2f(0.f, 0.f);
-    this->velocity = sf::Vector2f(0.f, 0.f);
+void Rigidbody::Euler::integrate(sf::Shape *shape)
+{
+    rbAttr.velocity += rbAttr.acceleration;
+    shape->move(rbAttr.velocity);
+
+    rbAttr.acceleration = sf::Vector2f(0.f, 0.f);
+    rbAttr.velocity = sf::Vector2f(0.f, 0.f);
+}
+
+void Rigidbody::Verlet::integrate(sf::Shape *shape)
+{
+    //Todo
 }

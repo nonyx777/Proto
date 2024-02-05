@@ -3,7 +3,7 @@
 #include "../GameObject.hpp"
 #include "../Rigidbody.hpp"
 
-class Circle : public GameObject, public Rigidbody
+class Circle : public GameObject, public Rigidbody::RigidbodyAttr
 {
 public:
     sf::CircleShape property;

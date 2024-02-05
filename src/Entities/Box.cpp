@@ -24,7 +24,7 @@ void Box::initVariables()
 
 void Box::update()
 {
-    this->integrate(&this->property);
+    Rigidbody::Euler::integrate(&this->property);
 }
 
 void Box::render(sf::RenderTarget *target)
