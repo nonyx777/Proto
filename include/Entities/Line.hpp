@@ -3,7 +3,7 @@
 #include "../GameObject.hpp"
 #include "../Rigidbody.hpp"
 
-class Line : public GameObject, public Rigidbody::RigidbodyAttr
+class Line : public GameObject, public Rigidbody
 {
 public:
     sf::Vector2f base;

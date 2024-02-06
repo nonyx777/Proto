@@ -20,7 +20,7 @@ void Circle::initVariables()
 
 void Circle::update()
 {
-    this->integrate(&this->property);
+    this->euler(&this->property);
 }
 
 void Circle::render(sf::RenderTarget *target)

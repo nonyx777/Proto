@@ -3,7 +3,7 @@
 #include "../GameObject.hpp"
 #include "../Rigidbody.hpp"
 
-class Box : public GameObject, public Rigidbody::RigidbodyAttr
+class Box : public GameObject, public Rigidbody
 {
 public:
     sf::RectangleShape property;

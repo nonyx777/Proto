@@ -1,21 +1,20 @@
 #include "../include/Rigidbody.hpp"
 
-Rigidbody::RigidbodyAttr rbAttr;
 
-void Rigidbody::Euler::integrate(sf::Shape *shape)
+void Rigidbody::euler(sf::Shape *shape)
 {
-    rbAttr.velocity += rbAttr.acceleration;
-    shape->move(rbAttr.velocity);
+    this->velocity += this->acceleration;
+    shape->move(this->velocity);
 
-    rbAttr.acceleration = sf::Vector2f(0.f, 0.f);
+    this->acceleration = sf::Vector2f(0.f, 0.f);
 }
 
-void Rigidbody::Verlet::integrate(sf::Shape *shape)
+void Rigidbody::verlet(sf::Shape *shape)
 {
     current = shape->getPosition();
-    rbAttr.velocity = (current - previous) + rbAttr.acceleration;
-    shape->move(rbAttr.velocity);
+    this->velocity = (current - previous) + this->acceleration;
+    shape->move(this->velocity);
     previous = current;
 
-    rbAttr.acceleration = sf::Vector2f(0.f, 0.f);
+    this->acceleration = sf::Vector2f(0.f, 0.f);
 }
