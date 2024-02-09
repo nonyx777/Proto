@@ -135,20 +135,20 @@ SCENARIO("Collision")
         }
     }
 
-    // GIVEN("Oriented Boxes")
-    // {
-    //     Box a = Box(10, sf::Vector2f(4.f, 4.f));
-    //     Box b = Box(10, sf::Vector2f(6.f, 6.f));
+    GIVEN("Oriented Boxes")
+    {
+        Box a = Box(10, sf::Vector2f(4.f, 4.f));
+        Box b = Box(10, sf::Vector2f(6.f, 6.f));
 
-    //     WHEN("The two boxes collide")
-    //     {
-    //         bool collide = collision._orientedBoxCollide(a, b);
-    //         THEN("Collision flag should be true")
-    //         {
-    //             REQUIRE(collide == true);
-    //         }
-    //     }
-    // }
+        WHEN("The two boxes collide")
+        {
+            bool collide = collision._orientedBoxCollide(a, b);
+            THEN("Collision flag should be true")
+            {
+                REQUIRE(collide == true);
+            
+        }
+    }
 
     GIVEN("An array of vectors")
     {
