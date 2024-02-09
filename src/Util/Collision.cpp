@@ -166,3 +166,26 @@ sf::Vector2f Collision::clampOnRectangle(sf::Vector2f point, Box box)
     clamp.y = Math::_clampOnRange(point.y, box.property.getGlobalBounds().top, box.property.getGlobalBounds().top + box.property.getGlobalBounds().height);
     return clamp;
 }
+
+sf::Vector2f Collision::minVector(std::vector<sf::Vector2f> &vectors)
+{
+    sf::Vector2f min_vector = vectors[0];
+    for (int i = 1; i < vectors.size(); i++)
+    {
+        if (vectors[i].x <= min_vector.x && vectors[i].y >= min_vector.y)
+            min_vector = vectors[i];
+    }
+
+    return min_vector;
+}
+sf::Vector2f Collision::maxVector(std::vector<sf::Vector2f> &vectors)
+{
+    sf::Vector2f max_vector = vectors[0];
+    for (int i = 1; i < vectors.size(); i++)
+    {
+        if (vectors[i].x >= max_vector.x && vectors[i].y <= max_vector.y)
+            max_vector = vectors[i];
+    }
+
+    return max_vector;
+}

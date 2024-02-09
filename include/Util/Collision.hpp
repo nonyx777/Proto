@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <algorithm>
 #include "Math.hpp"
 #include "../Entities/Entities.hpp"
 
@@ -42,4 +43,6 @@ public:
     void _circleBoxCollisionResolution(Circle &circle, Box &box);
     //...
     sf::Vector2f clampOnRectangle(sf::Vector2f point, Box box);
+    sf::Vector2f minVector(std::vector<sf::Vector2f> &vectors);
+    sf::Vector2f maxVector(std::vector<sf::Vector2f> &vectors);
 };
