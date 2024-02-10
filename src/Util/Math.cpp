@@ -93,7 +93,7 @@ float Math::_angleBtn(sf::Vector2f a, sf::Vector2f b)
     return angle;
 }
 
-//...
+//defining additional support functions
 float Math::_clampOnRange(float x, float min, float max)
 {
     if (x < min)
@@ -102,4 +102,35 @@ float Math::_clampOnRange(float x, float min, float max)
         return max;
     else
         return x;
+}
+
+sf::Vector2f Math::_minVector(std::vector<sf::Vector2f> &vectors)
+{
+    sf::Vector2f min_vector = vectors[0];
+    float min_value = Math::_dot(min_vector, min_vector);
+    for (int i = 1; i < vectors.size(); i++)
+    {
+        float candidate_min_value = Math::_dot(vectors[i], vectors[i]);
+        if (candidate_min_value <= min_value)
+        {
+            min_vector = vectors[i];
+        }
+    }
+
+    return min_vector;
+}
+sf::Vector2f Math::_maxVector(std::vector<sf::Vector2f> &vectors)
+{
+    sf::Vector2f max_vector = vectors[0];
+    float max_value = Math::_dot(max_vector, max_vector);
+    for (int i = 1; i < vectors.size(); i++)
+    {
+        float candidate_max_value = Math::_dot(vectors[i], vectors[i]);
+        if (candidate_max_value >= max_value)
+        {
+            max_vector = vectors[i];
+        }
+    }
+
+    return max_vector;
 }

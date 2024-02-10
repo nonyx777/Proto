@@ -34,6 +34,8 @@ public:
     static sf::Vector2f _project(sf::Vector2f a, sf::Vector2f b);
     static float _angleBtn(sf::Vector2f a, sf::Vector2f b);
 
-    //...
+    // additional
     static float _clampOnRange(float x, float min, float max);
+    static sf::Vector2f _minVector(std::vector<sf::Vector2f> &vectors);
+    static sf::Vector2f _maxVector(std::vector<sf::Vector2f> &vectors);
 };

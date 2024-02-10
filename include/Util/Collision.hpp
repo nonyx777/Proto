@@ -1,6 +1,5 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <algorithm>
 #include "Math.hpp"
 #include "../Entities/Entities.hpp"
 
@@ -29,6 +28,7 @@ public:
     bool _circlePointCollide(Circle &a, sf::Vector2f point);
     bool _circleWindowCollide(Circle &a, Line l1, Line l2, Line l3, Line l4);
     bool _circleBoxCollide(Circle &circle, Box &box);
+    bool _orientedBoxCollide(Box &a, Box &b);
     // penetretion and collision resolution
     // circle
     void _circlePenetrationResolution(Circle &a, Circle &b);
@@ -43,6 +43,4 @@ public:
     void _circleBoxCollisionResolution(Circle &circle, Box &box);
     //...
     sf::Vector2f clampOnRectangle(sf::Vector2f point, Box box);
-    sf::Vector2f minVector(std::vector<sf::Vector2f> &vectors);
-    sf::Vector2f maxVector(std::vector<sf::Vector2f> &vectors);
 };
