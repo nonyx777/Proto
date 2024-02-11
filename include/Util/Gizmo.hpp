@@ -12,6 +12,7 @@ public:
     Gizmo();
 
 public:
-    Line drawRay(sf::Vector2f start_position, sf::Vector2f direction, float length);
-    Circle drawCircle(sf::Vector2f position, float radius, sf::Color color);
+    void drawAll(sf::RenderTarget *target);
+    void drawRay(sf::Vector2f start_position, sf::Vector2f direction);
+    void drawCircle(sf::Vector2f position, float radius, sf::Color color);
 };
