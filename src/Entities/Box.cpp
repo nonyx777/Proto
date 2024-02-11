@@ -5,6 +5,13 @@ Box::Box()
     this->initVariables();
 }
 
+Box::Box(uint size)
+{
+    this->property.setSize(sf::Vector2f(size, size));
+    this->property.setOrigin(this->property.getSize() / 2.f);
+    this->property.setFillColor(sf::Color::White);
+}
+
 Box::Box(uint size, sf::Vector2f position)
 {
     this->property.setSize(sf::Vector2f(size, size));
