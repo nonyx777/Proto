@@ -5,6 +5,7 @@
 #include "../Util/Gizmo.hpp"
 #include "../Util/Grid.hpp"
 #include "../Globals.hpp"
+#include "../Util/Collision.hpp"
 
 class Scene : public GameObject
 {
