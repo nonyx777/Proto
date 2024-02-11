@@ -145,7 +145,7 @@ SCENARIO("Collision")
             bool collide = collision._orientedBoxCollide(a, b);
             THEN("Collision flag should be true")
             {
-                REQUIRE(collide == false);
+                REQUIRE(collide == true);
             }
         }
     }

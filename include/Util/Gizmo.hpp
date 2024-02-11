@@ -4,7 +4,7 @@
 
 class Gizmo
 {
-private:
+public:
     Line line;
     Circle circle;
 
