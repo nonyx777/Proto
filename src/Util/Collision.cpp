@@ -176,7 +176,7 @@ bool Collision::_orientedBoxCollide(Box &a, Box &b)
         // check if is there is any absence of intersection
         // return false if there exists even one occurence that intersection did not exist
         if ((this->_boxOverlapping(a_min_edge.x, a_max_edge.x, b_min_edge.x, b_max_edge.x) &&
-             this->_boxOverlapping(a_min_edge.y, a_max_edge.y, b_min_edge.y, b_min_edge.y)) == false)
+             this->_boxOverlapping(a_min_edge.y, a_max_edge.y, b_min_edge.y, b_max_edge.y)) == false)
         {
             return false;
         }
@@ -204,7 +204,7 @@ bool Collision::_orientedBoxCollide(Box &a, Box &b)
         // check if is there is any absence of intersection
         // return false if there exists even one occurence that intersection did not exist
         if ((this->_boxOverlapping(a_min_edge.x, a_max_edge.x, b_min_edge.x, b_max_edge.x) &&
-             this->_boxOverlapping(a_min_edge.y, a_max_edge.y, b_min_edge.y, b_min_edge.y)) == false)
+             this->_boxOverlapping(a_min_edge.y, a_max_edge.y, b_min_edge.y, b_max_edge.y)) == false)
         {
             return false;
         }
