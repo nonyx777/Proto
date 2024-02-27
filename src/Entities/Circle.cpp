@@ -18,6 +18,12 @@ void Circle::initVariables()
     this->inverseMass = this->mass == 0.f ? 100000.f : 1.f / this->mass;
 }
 
+void Circle::calcMomentOfInertia()
+{
+    //mr^2
+    this->momentOfInertia = this->mass * (this->property.getRadius() * this->property.getRadius());
+}
+
 void Circle::update()
 {
     this->euler(&this->property);

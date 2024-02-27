@@ -29,6 +29,13 @@ void Box::initVariables()
     this->property.setOrigin(this->property.getSize() / 2.f);
 }
 
+void Box::calcMomentOfInertia()
+{
+    //m(h^2 + w^2) / 12
+    sf::FloatRect bounds = this->property.getGlobalBounds();
+    this->momentOfInertia = this->mass * ((bounds.height * bounds.height) + (bounds.width * bounds.width)) / 12.f;
+}
+
 void Box::update()
 {
     euler(&this->property);
