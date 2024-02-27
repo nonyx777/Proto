@@ -8,5 +8,5 @@ public:
     float inverseMass;
     float momentOfInertia;
 
-    virtual void calcMomentOfInertia();
+    virtual void calcMomentOfInertia() = 0;
 };
