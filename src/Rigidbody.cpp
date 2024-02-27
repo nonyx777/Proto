@@ -3,18 +3,18 @@
 
 void Rigidbody::euler(sf::Shape *shape)
 {
-    this->velocity += this->acceleration;
-    shape->move(this->velocity);
+    this->linearVelocity += this->linearAcceleration;
+    shape->move(this->linearVelocity);
 
-    this->acceleration = sf::Vector2f(0.f, 0.f);
+    this->linearAcceleration = sf::Vector2f(0.f, 0.f);
 }
 
 void Rigidbody::verlet(sf::Shape *shape)
 {
     current = shape->getPosition();
-    this->velocity = (current - previous) + this->acceleration;
-    shape->move(this->velocity);
+    this->linearVelocity = (current - previous) + this->linearAcceleration;
+    shape->move(this->linearVelocity);
     previous = current;
 
-    this->acceleration = sf::Vector2f(0.f, 0.f);
+    this->linearAcceleration = sf::Vector2f(0.f, 0.f);
 }

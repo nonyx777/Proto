@@ -93,7 +93,7 @@ void Collision::_circleCollisionResolution(Circle &a, Circle &b)
 {
     sf::Vector2f normal = Math::_displacement(a.property.getPosition(), b.property.getPosition());
     normal = Math::_normalize(normal);
-    sf::Vector2f relative_velocity = Math::_displacement(a.velocity, b.velocity);
+    sf::Vector2f relative_velocity = Math::_displacement(a.linearVelocity, b.linearVelocity);
     float separating_velocity = Math::_dot(relative_velocity, normal);
     float impulse = -separating_velocity - separating_velocity / (a.inverseMass + b.inverseMass);
     sf::Vector2f impulse_vector = normal * impulse;
@@ -113,7 +113,7 @@ void Collision::_circlePointCollisionResolution(Circle &circle, sf::Vector2f &po
 {
     sf::Vector2f normal = Math::_displacement(circle.property.getPosition(), point);
     normal = Math::_normalize(normal);
-    sf::Vector2f relative_velocity = Math::_displacement(circle.velocity, sf::Vector2f(0.f, 0.f));
+    sf::Vector2f relative_velocity = Math::_displacement(circle.linearVelocity, sf::Vector2f(0.f, 0.f));
     float separating_velocity = Math::_dot(relative_velocity, normal);
     sf::Vector2f separating_velocity_vector = normal * separating_velocity;
     this->b_velocity = -separating_velocity_vector * circle.elasticity;
@@ -235,7 +235,7 @@ void Collision::_boxCollisionResolution(Box &a, Box &b)
 {
     sf::Vector2f normal = a.property.getPosition() - b.property.getPosition();
     normal = Math::_normalize(normal);
-    sf::Vector2f relative_velocity = a.velocity - b.velocity;
+    sf::Vector2f relative_velocity = a.linearVelocity - b.linearVelocity;
     float separating_velocity = Math::_dot(relative_velocity, normal);
     sf::Vector2f separating_velocity_vector = normal * separating_velocity;
     this->a_velocity = -separating_velocity_vector;
