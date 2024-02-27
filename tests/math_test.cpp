@@ -79,5 +79,7 @@ TEST_CASE("Math Tests")
                 }
             }
         }
+
+        REQUIRE(Math::_lerp(2.f, 4.f, 0.5f) == Approx(3.f));
     }
 }
