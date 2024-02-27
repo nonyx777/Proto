@@ -134,3 +134,9 @@ sf::Vector2f Math::_maxVector(std::vector<sf::Vector2f> &vectors)
 
     return max_vector;
 }
+
+float Math::_lerp(float min, float max, float t)
+{
+    float value = (1.f - t) * min + max * t;
+    return  value;
+}
