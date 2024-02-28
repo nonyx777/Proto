@@ -5,3 +5,4 @@
 #include "collision_test.cpp"
 #include "gizmo_test.cpp"
 #include "grid_test.cpp"
+#include "rigidbody_test.cpp"
