@@ -1,6 +1,5 @@
 #include "../include/Rigidbody.hpp"
 
-
 void Rigidbody::euler(sf::Shape *shape)
 {
     this->linearVelocity += this->linearAcceleration;
@@ -17,4 +16,15 @@ void Rigidbody::verlet(sf::Shape *shape)
     previous = current;
 
     this->linearAcceleration = sf::Vector2f(0.f, 0.f);
+}
+
+void Rigidbody::calcTorque(sf::Shape *shape)
+{
+    // t = frsin@
+    this->torque = shape->getPosition().x * this->force.y - shape->getPosition().y * this->force.x;
+}
+
+void Rigidbody::calcAngularAcceleration(Entity *entity)
+{
+    this->angularAcceleration = this->torque / entity->momentOfInertia;
 }
