@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Math.hpp"
 #include "../Entities/Entities.hpp"
+#include "../Globals.hpp"
 
 using namespace std;
 
@@ -9,12 +10,8 @@ class Collision
 {
 public:
     // storing vital positions
-    sf::Vector2f a_position;
-    sf::Vector2f b_position;
     sf::Vector2f nearest_point;
     sf::Vector2f a_velocity;
-    sf::Vector2f b_velocity;
-    sf::Vector2f tempo_position;
     // intersection check
     bool _boxOverlapping(float min_a, float max_a, float min_b, float max_b);
     bool _circleOverlapping(float radius_a, float radius_b, sf::Vector2f origin_a, sf::Vector2f origin_b);

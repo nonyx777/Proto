@@ -75,7 +75,6 @@ bool Collision::_circleWindowCollide(Circle &a, Line l1, Line l2, Line l3, Line 
 bool Collision::_circleBoxCollide(Circle &circle, Box &box)
 {
     sf::Vector2f clamped = this->clampOnRectangle(circle.property.getPosition(), box);
-    tempo_position = clamped;
     return this->_circlePointCollide(circle, clamped);
 }
 // penetration and collision resolution
@@ -86,8 +85,10 @@ void Collision::_circlePenetrationResolution(Circle &a, Circle &b)
     float distance = Math::_length(normal);
     float penetration_depth = (a.property.getRadius() + b.property.getRadius()) - distance;
     sf::Vector2f penetration_resolution_vector = Math::_normalize(normal) * penetration_depth / (a.inverseMass + b.inverseMass);
-    this->a_position = penetration_resolution_vector * a.inverseMass;
-    this->b_position = -penetration_resolution_vector * b.inverseMass;
+    sf::Vector2f a_position = penetration_resolution_vector * a.inverseMass;
+    sf::Vector2f b_position = -penetration_resolution_vector * b.inverseMass;
+    a.property.move(a_position);
+    b.property.move(b_position);
 }
 void Collision::_circleCollisionResolution(Circle &a, Circle &b)
 {
@@ -97,8 +98,10 @@ void Collision::_circleCollisionResolution(Circle &a, Circle &b)
     float separating_velocity = Math::_dot(relative_velocity, normal);
     float impulse = -separating_velocity - separating_velocity / (a.inverseMass + b.inverseMass);
     sf::Vector2f impulse_vector = normal * impulse;
-    this->a_velocity = impulse_vector * a.inverseMass * a.elasticity;
-    this->b_velocity = -impulse_vector * b.inverseMass * b.elasticity;
+    sf::Vector2f a_velocity = impulse_vector * a.inverseMass * a.elasticity;
+    sf::Vector2f b_velocity = -impulse_vector * b.inverseMass * b.elasticity;
+    a.linearVelocity += a_velocity;
+    b.linearVelocity += b_velocity;
 }
 // circle-point penetration resolution
 void Collision::_circlePointPenetrationResolution(Circle &a, sf::Vector2f &p)
@@ -107,7 +110,7 @@ void Collision::_circlePointPenetrationResolution(Circle &a, sf::Vector2f &p)
     float distance = Math::_length(normal);
     float penetration_distance = a.property.getRadius() - distance;
     sf::Vector2f penetration_resolution_vector = Math::_normalize(normal) * penetration_distance / 2.f;
-    this->a_position = penetration_resolution_vector;
+    a.property.move(penetration_resolution_vector);
 }
 void Collision::_circlePointCollisionResolution(Circle &circle, sf::Vector2f &point)
 {
@@ -116,7 +119,9 @@ void Collision::_circlePointCollisionResolution(Circle &circle, sf::Vector2f &po
     sf::Vector2f relative_velocity = Math::_displacement(circle.linearVelocity, sf::Vector2f(0.f, 0.f));
     float separating_velocity = Math::_dot(relative_velocity, normal);
     sf::Vector2f separating_velocity_vector = normal * separating_velocity;
-    this->b_velocity = -separating_velocity_vector * circle.elasticity;
+
+    sf::Vector2f circle_velocity = -separating_velocity_vector * circle.elasticity;
+    circle.linearVelocity = circle_velocity;
 }
 bool Collision::_orientedBoxCollide(Box &a, Box &b)
 {
@@ -227,8 +232,8 @@ void Collision::_boxPenetrationResolution(Box &a, Box &b)
     float penetration_depth = min(overlap_x, overlap_y);
     sf::Vector2f penetration_resolution_vector = Math::_normalize(normal) * penetration_depth / (a_x_half + b_x_half);
 
-    this->a_position = -penetration_resolution_vector;
-    this->b_position = penetration_resolution_vector;
+    a.property.move(-penetration_resolution_vector);
+    b.property.move(penetration_resolution_vector);
 }
 // box-box collision resolution
 void Collision::_boxCollisionResolution(Box &a, Box &b)
@@ -238,8 +243,8 @@ void Collision::_boxCollisionResolution(Box &a, Box &b)
     sf::Vector2f relative_velocity = a.linearVelocity - b.linearVelocity;
     float separating_velocity = Math::_dot(relative_velocity, normal);
     sf::Vector2f separating_velocity_vector = normal * separating_velocity;
-    this->a_velocity = -separating_velocity_vector;
-    this->b_velocity = separating_velocity_vector;
+    a.linearVelocity += -separating_velocity_vector;
+    b.linearVelocity += separating_velocity_vector;
 }
 // circle-box penetration resolution
 void Collision::_circleBoxPenetrationResolution(Circle &circle, Box &box)
@@ -250,8 +255,8 @@ void Collision::_circleBoxPenetrationResolution(Circle &circle, Box &box)
     float distance = Math::_length(circle.property.getPosition() - nearest_position);
     float penetration_depth = circle.property.getRadius() - distance;
     sf::Vector2f penetration_resolution_vector = normal * penetration_depth;
-    this->a_position = penetration_resolution_vector;
-    this->b_position = -penetration_resolution_vector;
+    circle.property.move(penetration_resolution_vector);
+    box.property.move(-penetration_resolution_vector);
 }
 
 //...
