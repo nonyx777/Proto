@@ -26,7 +26,7 @@ void Circle::calcMomentOfInertia()
 
 void Circle::update()
 {
-    this->euler(&this->property);
+    this->linearEuler(&this->property);
 }
 
 void Circle::render(sf::RenderTarget *target)

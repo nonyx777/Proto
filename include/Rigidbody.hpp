@@ -13,11 +13,11 @@ public:
     float torque;
     float elasticity;
 
-    void euler(sf::Shape *shape);
+    void linearEuler(sf::Shape *shape);
     void verlet(sf::Shape *shape);
+    void angularEuler(sf::Shape *shape, Entity *entity);
     void calcTorque(sf::Shape *shape);
     void calcAngularAcceleration(Entity *entity);
-
 
     // verlet related
     sf::Vector2f current, previous;

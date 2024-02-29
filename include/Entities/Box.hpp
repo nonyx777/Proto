@@ -17,6 +17,7 @@ public:
     Box();
     Box(uint size);
     Box(uint size, sf::Vector2f position);
+    Box(sf::Vector2f size, sf::Vector2f position);
 
     void calcMomentOfInertia() override;
     void update() override;

@@ -12,7 +12,7 @@ TEST_CASE("Rigidbody Functions")
 
     SECTION("Integration Functions")
     {
-        //TODO: Euler and Verlet
+        //TODO: linearEuler and Verlet
     }
 
     SECTION("Angular Motion Functions")
