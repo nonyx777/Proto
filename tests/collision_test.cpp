@@ -149,4 +149,23 @@ SCENARIO("Collision")
             }
         }
     }
+
+    GIVEN("Circle and Oriented Box")
+    {
+        Circle circle = Circle(10.f);
+        float radius = circle.property.getRadius();
+        circle.property.setOrigin(sf::Vector2f(radius, radius));
+        circle.property.setPosition(sf::Vector2f(5.f, 5.f));
+
+        Box box = Box(sf::Vector2f(70.f, 50.f), sf::Vector2f(8.f, 4.f));
+        box.property.setRotation(30.f);
+        WHEN("The two objects collide")
+        {
+            bool collide = collision._circleOrientedBoxCollide(circle, box);
+            THEN("Collision flag should be true")
+            {
+                REQUIRE(collide == true);
+            }
+        }
+    }
 }
