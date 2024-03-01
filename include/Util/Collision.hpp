@@ -26,6 +26,7 @@ public:
     bool _circleWindowCollide(Circle &a, Line l1, Line l2, Line l3, Line l4);
     bool _circleBoxCollide(Circle &circle, Box &box);
     bool _orientedBoxCollide(Box &a, Box &b);
+    bool _circleOrientedBoxCollide(Circle &circle, Box &box);
     // penetretion and collision resolution
     // circle
     void _circlePenetrationResolution(Circle &a, Circle &b);

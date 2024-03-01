@@ -219,6 +219,28 @@ bool Collision::_orientedBoxCollide(Box &a, Box &b)
 
     return true;
 }
+bool Collision::_circleOrientedBoxCollide(Circle &circle, Box &box)
+{
+    //local box (turn oriented into AABB)
+    Box lb = Box();
+    lb.property.setOrigin(sf::Vector2f(0.f, 0.f));
+    lb.property.setSize(box.property.getSize());
+    lb.property.setOrigin(lb.property.getSize()/2.f);
+    //local circle
+    Circle lc = Circle();
+    circle.property.setRadius(circle.property.getRadius());
+    float radius = circle.property.getRadius();
+    circle.property.setOrigin(sf::Vector2f(radius, radius));
+    
+    //...
+    sf::Vector2f distance = Math::_displacement(circle.property.getPosition(), box.property.getPosition());
+    float box_angle = box.property.getRotation();
+    distance = Math::_rotate(distance, -box_angle);
+    lc.property.setPosition(lb.property.getPosition() + distance);
+
+    //check collision of circle and AABB
+    return this->_circleBoxCollide(lc, lb);
+}
 
 // box-box penetration resoultion
 void Collision::_boxPenetrationResolution(Box &a, Box &b)
