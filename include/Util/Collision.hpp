@@ -11,7 +11,6 @@ class Collision
 public:
     // storing vital positions
     sf::Vector2f nearest_point;
-    sf::Vector2f a_velocity;
     // intersection check
     bool _boxOverlapping(float min_a, float max_a, float min_b, float max_b);
     bool _circleOverlapping(float radius_a, float radius_b, sf::Vector2f origin_a, sf::Vector2f origin_b);

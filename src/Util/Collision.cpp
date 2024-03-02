@@ -121,7 +121,7 @@ void Collision::_circlePointCollisionResolution(Circle &circle, sf::Vector2f &po
     sf::Vector2f separating_velocity_vector = normal * separating_velocity;
 
     sf::Vector2f circle_velocity = -separating_velocity_vector * circle.elasticity;
-    circle.linearVelocity = circle_velocity;
+    circle.linearVelocity += circle_velocity;
 }
 bool Collision::_orientedBoxCollide(Box &a, Box &b)
 {
@@ -221,25 +221,18 @@ bool Collision::_orientedBoxCollide(Box &a, Box &b)
 }
 bool Collision::_circleOrientedBoxCollide(Circle &circle, Box &box)
 {
-    //local box (turn oriented into AABB)
-    Box lb = Box();
-    lb.property.setOrigin(sf::Vector2f(0.f, 0.f));
-    lb.property.setSize(box.property.getSize());
-    lb.property.setOrigin(lb.property.getSize()/2.f);
-    //local circle
-    Circle lc = Circle();
-    circle.property.setRadius(circle.property.getRadius());
-    float radius = circle.property.getRadius();
-    circle.property.setOrigin(sf::Vector2f(radius, radius));
-    
-    //...
-    sf::Vector2f distance = Math::_displacement(circle.property.getPosition(), box.property.getPosition());
-    float box_angle = box.property.getRotation();
-    distance = Math::_rotate(distance, -box_angle);
-    lc.property.setPosition(lb.property.getPosition() + distance);
+    sf::Transform transform = box.property.getTransform();
+    sf::Vector2f top_left = transform.transformPoint(box.property.getPoint(0));
+    sf::Vector2f top_right = transform.transformPoint(box.property.getPoint(1));
+    sf::Vector2f bottom_right = transform.transformPoint(box.property.getPoint(2));
+    sf::Vector2f bottom_left = transform.transformPoint(box.property.getPoint(3));
 
-    //check collision of circle and AABB
-    return this->_circleBoxCollide(lc, lb);
+    Line line1 = Line(top_left, top_right);
+    Line line2 = Line(bottom_left, bottom_right);
+    Line line3 = Line(top_left, bottom_left);
+    Line line4 = Line(top_right, bottom_right);
+
+    return this->_circleWindowCollide(circle, line1, line2, line3, line4);
 }
 
 // box-box penetration resoultion
@@ -277,8 +270,24 @@ void Collision::_circleBoxPenetrationResolution(Circle &circle, Box &box)
     float distance = Math::_length(circle.property.getPosition() - nearest_position);
     float penetration_depth = circle.property.getRadius() - distance;
     sf::Vector2f penetration_resolution_vector = normal * penetration_depth;
-    circle.property.move(penetration_resolution_vector);
-    box.property.move(-penetration_resolution_vector);
+    sf::Vector2f circle_position = penetration_resolution_vector;
+    sf::Vector2f box_position = -penetration_resolution_vector;
+    circle.property.move(circle_position);
+    // box.property.move(box_position);
+}
+// circle-box collision resolution
+void Collision::_circleBoxCollisionResolution(Circle &circle, Box &box)
+{
+    sf::Vector2f normal = circle.property.getPosition() - box.property.getPosition();
+    normal = Math::_normalize(normal);
+    sf::Vector2f relative_velocity = circle.linearVelocity - box.linearVelocity;
+    float separating_velocity = Math::_dot(relative_velocity, normal);
+    float impulse = -separating_velocity - separating_velocity / (circle.inverseMass + box.inverseMass);
+    sf::Vector2f impulse_vector = normal * impulse;
+    sf::Vector2f circle_velocity = impulse_vector * circle.inverseMass;
+    sf::Vector2f box_velocity = -impulse_vector * box.inverseMass;
+    circle.linearVelocity += circle_velocity;
+    box.linearVelocity += box_velocity;
 }
 
 //...
