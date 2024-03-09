@@ -126,35 +126,46 @@ void Collision::_circlePointCollisionResolution(Circle &circle, sf::Vector2f &po
 bool Collision::_orientedBoxCollide(Box &a, Box &b)
 {
     // get bounds of both of the boxes
-    // box a
-    sf::FloatRect a_bounds = a.property.getGlobalBounds();
-    std::vector<sf::Vector2f> a_edges;
-    a_edges.push_back(sf::Vector2f(a_bounds.left, a_bounds.top));                                    // top left
-    a_edges.push_back(sf::Vector2f(a_bounds.left + a_bounds.width, a_bounds.top));                   // top right
-    a_edges.push_back(sf::Vector2f(a_bounds.left, a_bounds.top + a_bounds.height));                  // bottom left
-    a_edges.push_back(sf::Vector2f(a_bounds.left + a_bounds.width, a_bounds.top + a_bounds.height)); // bottom right
-    // box b
-    sf::FloatRect b_bounds = b.property.getGlobalBounds();
-    std::vector<sf::Vector2f> b_edges;
-    b_edges.push_back(sf::Vector2f(b_bounds.left, b_bounds.top));                                    // top left
-    b_edges.push_back(sf::Vector2f(b_bounds.left + b_bounds.width, b_bounds.top));                   // top right
-    b_edges.push_back(sf::Vector2f(b_bounds.left, b_bounds.top + b_bounds.height));                  // bottom left
-    b_edges.push_back(sf::Vector2f(b_bounds.left + b_bounds.width, b_bounds.top + b_bounds.height)); // bottom right
+    // box a..........................................
+    sf::Transform a_transform = a.property.getTransform();
+    sf::Vector2f a_top_left = a_transform.transformPoint(a.property.getPoint(0));
+    sf::Vector2f a_top_right = a_transform.transformPoint(a.property.getPoint(1));
+    sf::Vector2f a_bottom_right = a_transform.transformPoint(a.property.getPoint(2));
+    sf::Vector2f a_bottom_left = a_transform.transformPoint(a.property.getPoint(3));
 
+    std::vector<sf::Vector2f> a_edges;
+    a_edges.push_back(a_top_left);     // top left
+    a_edges.push_back(a_top_right);    // top right
+    a_edges.push_back(a_bottom_left);  // bottom left
+    a_edges.push_back(a_bottom_right); // bottom right
+
+    // box b.............................................
+    sf::Transform b_transform = b.property.getTransform();
+    sf::Vector2f b_top_left = b_transform.transformPoint(b.property.getPoint(0));
+    sf::Vector2f b_top_right = b_transform.transformPoint(b.property.getPoint(1));
+    sf::Vector2f b_bottom_right = b_transform.transformPoint(b.property.getPoint(2));
+    sf::Vector2f b_bottom_left = b_transform.transformPoint(b.property.getPoint(3));
+
+    std::vector<sf::Vector2f> b_edges;
+    b_edges.push_back(b_top_left);     // top left
+    b_edges.push_back(b_top_right);    // top right
+    b_edges.push_back(b_bottom_left);  // bottom left
+    b_edges.push_back(b_bottom_right); // bottom right
+    
     // get axes
     sf::Vector2f tempo_axis;
     // a axis
     std::vector<sf::Vector2f> a_axis;
-    tempo_axis = Math::_normalize(a_edges[0] - a_edges[2]);
+    tempo_axis = Math::_normalize(a_edges[2] - a_edges[0]);
     a_axis.push_back(tempo_axis);
-    tempo_axis = Math::_normalize(a_edges[2] - a_edges[3]);
+    tempo_axis = Math::_normalize(a_edges[3] - a_edges[2]);
     a_axis.push_back(tempo_axis);
 
     // b axis
     std::vector<sf::Vector2f> b_axis;
-    tempo_axis = Math::_normalize(b_edges[0] - b_edges[2]);
+    tempo_axis = Math::_normalize(b_edges[2] - b_edges[0]);
     b_axis.push_back(tempo_axis);
-    tempo_axis = Math::_normalize(b_edges[2] - b_edges[3]);
+    tempo_axis = Math::_normalize(b_edges[3] - b_edges[2]);
     b_axis.push_back(tempo_axis);
 
     // project edges of the boxes into a and b axis
@@ -180,7 +191,7 @@ bool Collision::_orientedBoxCollide(Box &a, Box &b)
         sf::Vector2f b_max_edge = Math::_maxVector(b_projected_edges);
         // check if is there is any absence of intersection
         // return false if there exists even one occurence that intersection did not exist
-        if ((this->_boxOverlapping(a_min_edge.x, a_max_edge.x, b_min_edge.x, b_max_edge.x) &&
+        if ((this->_boxOverlapping(a_min_edge.x, a_max_edge.x, b_min_edge.x, b_max_edge.x) ||
              this->_boxOverlapping(a_min_edge.y, a_max_edge.y, b_min_edge.y, b_max_edge.y)) == false)
         {
             return false;
@@ -208,7 +219,7 @@ bool Collision::_orientedBoxCollide(Box &a, Box &b)
         sf::Vector2f b_max_edge = Math::_maxVector(b_projected_edges);
         // check if is there is any absence of intersection
         // return false if there exists even one occurence that intersection did not exist
-        if ((this->_boxOverlapping(a_min_edge.x, a_max_edge.x, b_min_edge.x, b_max_edge.x) &&
+        if ((this->_boxOverlapping(a_min_edge.x, a_max_edge.x, b_min_edge.x, b_max_edge.x) ||
              this->_boxOverlapping(a_min_edge.y, a_max_edge.y, b_min_edge.y, b_max_edge.y)) == false)
         {
             return false;
