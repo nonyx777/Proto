@@ -35,7 +35,7 @@ public:
     Window();
     ~Window();
 
-    void pollEvent();
+    virtual void pollEvent();
     void update() override;
     void render(sf::RenderTarget *target) override;
     void winRender();
