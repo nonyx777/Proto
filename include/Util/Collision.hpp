@@ -21,6 +21,7 @@ public:
     bool _boxCollide(Box &a, Box &b);
     bool _circleCollide(Circle &a, Circle &b);
     bool _boxLineCollide();
+    bool _boxPointCollide(Box &box, sf::Vector2f point);
     bool _circlePointCollide(Circle &a, sf::Vector2f point);
     bool _circleWindowCollide(Circle &a, Line l1, Line l2, Line l3, Line l4);
     bool _circleBoxCollide(Circle &circle, Box &box);

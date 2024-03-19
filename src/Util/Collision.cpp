@@ -58,6 +58,20 @@ bool Collision::_boxCollide(Box &a, Box &b)
     return this->_boxOverlapping(a_left, a_right, b_left, b_right) && this->_boxOverlapping(a_top, a_bottom, b_top, b_bottom);
 }
 
+bool Collision::_boxPointCollide(Box &box, sf::Vector2f point)
+{
+    sf::FloatRect box_bound = box.property.getGlobalBounds();
+    float box_left = box_bound.left;
+    float box_right = box_bound.left + box_bound.width;
+    float box_bottom = box_bound.top + box_bound.height;
+    float box_top = box_bound.top;
+
+    return box_left <= point.x &&
+           box_right >= point.x &&
+           box_top <= point.y &&
+           box_bottom >= point.y;
+}
+
 bool Collision::_circleCollide(Circle &a, Circle &b)
 {
     return _circleOverlapping(a.property.getRadius(), b.property.getRadius(), a.property.getPosition(), b.property.getPosition());
@@ -151,7 +165,7 @@ bool Collision::_orientedBoxCollide(Box &a, Box &b)
     b_edges.push_back(b_top_right);    // top right
     b_edges.push_back(b_bottom_left);  // bottom left
     b_edges.push_back(b_bottom_right); // bottom right
-    
+
     // get axes
     sf::Vector2f tempo_axis;
     // a axis
