@@ -6,23 +6,6 @@
 #include "../Entities/Entities.hpp"
 #include "Collision.hpp"
 
-// Used to hold details of a point
-struct Point
-{
-	int x;
-	int y;
-	Point(float _x, float _y)
-	{
-		x = _x;
-		y = _y;
-	}
-	Point()
-	{
-		x = 0;
-		y = 0;
-	}
-};
-
 // The objects that we want stored in the quadtree
 struct Node
 {
@@ -41,8 +24,8 @@ class Quad
 public:
     sf::Vector2f topLeft;
     sf::Vector2f botRight;
-    Node *node;
-    std::vector<Node*> nodes;
+    Circle *node;
+    std::vector<Circle*> nodes;
     int capacity;
 
     Box box;
@@ -56,6 +39,7 @@ public:
     Quad(sf::Vector2f topLeft, sf::Vector2f botRight);
     Collision collision;
 
-    void insert(Node *node);
-    std::vector<Node*> search(Box range);
+    void insert(Circle *node);
+    std::vector<Circle*> search(Box range);
+	void clear();
 };

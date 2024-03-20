@@ -6,7 +6,7 @@ Quad::Quad()
     botRight = sf::Vector2f(0, 0);
     capacity = 4;
 
-    Node *node = NULL;
+    Circle *node = NULL;
     Quad *ne = NULL;
     Quad *nw = NULL;
     Quad *sw = NULL;
@@ -18,24 +18,24 @@ Quad::Quad(sf::Vector2f topLeft_, sf::Vector2f botRight_)
     topLeft = topLeft_;
     botRight = botRight_;
     capacity = 4;
-    sf::Vector2f size = sf::Vector2f((float)botRight.x - (float)topLeft.x, (float)botRight.y - (float)topLeft.y);
-    sf::Vector2f position = sf::Vector2f(((float)topLeft.x + (float)botRight.x) / 2.f, ((float)topLeft.y + (float)botRight.y) / 2.f);
+    sf::Vector2f size = sf::Vector2f(botRight.x - topLeft.x, botRight.y - topLeft.y);
+    sf::Vector2f position = sf::Vector2f((topLeft.x + botRight.x) / 2.f, (topLeft.y + botRight.y) / 2.f);
 
     box = Box(size, position);
 
-    Node *node = NULL;
+    Circle *node = NULL;
     Quad *ne = NULL;
     Quad *nw = NULL;
     Quad *sw = NULL;
     Quad *se = NULL;
 }
 
-void Quad::insert(Node *node)
+void Quad::insert(Circle *node)
 {
     if (node == NULL)
         return;
 
-    if (!collision._boxPointCollide(this->box, node->pos))
+    if (!collision._boxPointCollide(this->box, node->property.getPosition()))
         return;
 
     if (nodes.size() < capacity && nw == NULL)
@@ -53,26 +53,25 @@ void Quad::insert(Node *node)
         se = new Quad(mid, botRight);
     }
 
-    if (node->pos.x < (topLeft.x + botRight.x) / 2)
+    if (node->property.getPosition().x < (topLeft.x + botRight.x) / 2)
     {
-        if (node->pos.y < (topLeft.y + botRight.y) / 2)
+        if (node->property.getPosition().y < (topLeft.y + botRight.y) / 2)
             nw->insert(node); // North-West
         else
             sw->insert(node); // South-West
     }
     else
     {
-        if (node->pos.y < (topLeft.y + botRight.y) / 2)
+        if (node->property.getPosition().y < (topLeft.y + botRight.y) / 2)
             ne->insert(node); // North-East
         else
             se->insert(node); // South-East
     }
 }
 
-// Find a node in a quadtree
-std::vector<Node *> Quad::search(Box range)
+std::vector<Circle *> Quad::search(Box range)
 {
-    std::vector<Node *> found;
+    std::vector<Circle *> found;
 
     if (!collision._boxCollide(this->box, range))
     {
@@ -81,7 +80,7 @@ std::vector<Node *> Quad::search(Box range)
 
     for (int i = 0; i < nodes.size(); i++)
     {
-        if (collision._boxPointCollide(range, nodes[i]->pos))
+        if (collision._boxPointCollide(range, nodes[i]->property.getPosition()))
             found.push_back(nodes[i]);
     }
 
@@ -93,27 +92,52 @@ std::vector<Node *> Quad::search(Box range)
 
     if (nw != NULL)
     {
-        std::vector<Node *> result = nw->search(range);
+        std::vector<Circle *> result = nw->search(range);
         found.insert(found.end(), result.begin(), result.end());
     }
 
     if (sw != NULL)
     {
-        std::vector<Node *> result = sw->search(range);
+        std::vector<Circle *> result = sw->search(range);
         found.insert(found.end(), result.begin(), result.end());
     }
 
     if (ne != NULL)
     {
-        std::vector<Node *> result = ne->search(range);
+        std::vector<Circle *> result = ne->search(range);
         found.insert(found.end(), result.begin(), result.end());
     }
 
     if (se != NULL)
     {
-        std::vector<Node *> result = se->search(range);
+        std::vector<Circle *> result = se->search(range);
         found.insert(found.end(), result.begin(), result.end());
     }
 
     return found;
+}
+
+void Quad::clear()
+{
+    if(nw == NULL){
+        nodes.clear();
+        return;
+    }
+
+    nw->clear();
+    sw->clear();
+    ne->clear();
+    se->clear();
+
+    nodes.clear();
+
+    delete nw;
+    delete sw;
+    delete ne;
+    delete se;
+
+    nw = NULL;
+    sw = NULL;
+    ne = NULL;
+    se = NULL;
 }
