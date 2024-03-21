@@ -15,6 +15,7 @@ private:
 public:
     Circle();
     Circle(float radius);
+    Circle (float radius, sf::Vector2f position);
 
     void calcMomentOfInertia() override;
     void update() override;

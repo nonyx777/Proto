@@ -12,6 +12,14 @@ Circle::Circle(float radius)
     this->property.setOrigin(sf::Vector2f(radius, radius));
 }
 
+Circle::Circle(float radius, sf::Vector2f position)
+{
+    this->initVariables();
+    this->property.setRadius(radius);
+    this->property.setOrigin(sf::Vector2f(radius, radius));
+    this->property.setPosition(position);
+}
+
 void Circle::initVariables()
 {
     this->property.setFillColor(sf::Color::White);
@@ -20,7 +28,7 @@ void Circle::initVariables()
 
 void Circle::calcMomentOfInertia()
 {
-    //mr^2
+    // mr^2
     this->momentOfInertia = this->mass * (this->property.getRadius() * this->property.getRadius());
 }
 
