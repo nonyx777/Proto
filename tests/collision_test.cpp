@@ -31,14 +31,11 @@ SCENARIO("Overlapping")
 
     GIVEN("Two Circles")
     {
-        Circle a = Circle(10.f);
-        Circle b = Circle(10.f);
+        Circle a = Circle(10.f, sf::Vector2f(50.f, 50.f));
+        Circle b = Circle(10.f, sf::Vector2f(50.f, 40.f));
 
         WHEN("Two Circles Overlap")
         {
-            a.property.setPosition(sf::Vector2f(50.f, 50.f));
-            b.property.setPosition(sf::Vector2f(50.f, 40.f));
-
             bool overlap = collision._circleOverlapping(a.property.getRadius(), b.property.getRadius(),
                                                         a.property.getPosition(), b.property.getPosition());
 
@@ -51,12 +48,10 @@ SCENARIO("Overlapping")
 
     GIVEN("A Circle and a Line Segment")
     {
-        Circle circle = Circle(10.f);
+        Circle circle = Circle(10.f, sf::Vector2f(55.f, 55.f));
         Line line = Line(sf::Vector2f(50.f, 50.f), sf::Vector2f(50.f, 60.f));
         WHEN("A Circle and a Line Segment overlap")
         {
-            circle.property.setPosition(sf::Vector2f(55.f, 55.f));
-
             bool overlap = collision._circleSegmentOverlapping(circle, line);
             THEN("Overlapping flag should be true")
             {
@@ -89,12 +84,10 @@ SCENARIO("Collision")
 
     GIVEN("Two Circles")
     {
-        Circle a = Circle(10.f);
-        Circle b = Circle(10.f);
+        Circle a = Circle(10.f, sf::Vector2f(50.f, 50.f));
+        Circle b = Circle(10.f, sf::Vector2f(50.f, 60.f));
         WHEN("Two Circles Collide")
         {
-            a.property.setPosition(sf::Vector2f(50.f, 50.f));
-            b.property.setPosition(sf::Vector2f(50.f, 60.f));
             bool collide = collision._circleCollide(a, b);
             THEN("Collision flag should be true")
             {
@@ -152,16 +145,26 @@ SCENARIO("Collision")
 
     GIVEN("Circle and Oriented Box")
     {
-        Circle circle = Circle(2.f);
-        float radius = circle.property.getRadius();
-        circle.property.setOrigin(sf::Vector2f(radius, radius));
-        circle.property.setPosition(sf::Vector2f(5.f, 7.f));
-
+        Circle circle = Circle(2.f, sf::Vector2f(5.f, 7.f));
         Box box = Box(sf::Vector2f(6.f, 2.f), sf::Vector2f(5.f, 4.f));
         box.property.setRotation(30.f);
         WHEN("The two objects collide")
         {
             bool collide = collision._circleOrientedBoxCollide(circle, box);
+            THEN("Collision flag should be true")
+            {
+                REQUIRE(collide == true);
+            }
+        }
+    }
+
+    GIVEN("Box and a Point")
+    {
+        Box box = Box(sf::Vector2f(10.f, 10.f), sf::Vector2f(20.f, 20.f));
+        sf::Vector2f point = sf::Vector2f(24.f, 20.f);
+        WHEN("The two object collide")
+        {
+            bool collide = collision._boxPointCollide(box, point);
             THEN("Collision flag should be true")
             {
                 REQUIRE(collide == true);
