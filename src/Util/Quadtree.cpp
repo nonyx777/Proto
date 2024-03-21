@@ -4,47 +4,42 @@ Quad::Quad()
 {
     topLeft = sf::Vector2f(0, 0);
     botRight = sf::Vector2f(0, 0);
-    capacity = 4;
 
-    Circle *node = NULL;
-    Quad *ne = NULL;
-    Quad *nw = NULL;
-    Quad *sw = NULL;
-    Quad *se = NULL;
+    node = nullptr;
+    ne = nullptr;
+    nw = nullptr;
+    sw = nullptr;
+    se = nullptr;
 }
 
 Quad::Quad(sf::Vector2f topLeft_, sf::Vector2f botRight_)
 {
     topLeft = topLeft_;
     botRight = botRight_;
-    capacity = 4;
     sf::Vector2f size = sf::Vector2f(botRight.x - topLeft.x, botRight.y - topLeft.y);
     sf::Vector2f position = sf::Vector2f((topLeft.x + botRight.x) / 2.f, (topLeft.y + botRight.y) / 2.f);
 
     box = Box(size, position);
 
-    Circle *node = NULL;
-    Quad *ne = NULL;
-    Quad *nw = NULL;
-    Quad *sw = NULL;
-    Quad *se = NULL;
+    node = nullptr;
+    ne = nullptr;
+    nw = nullptr;
+    sw = nullptr;
+    se = nullptr;
 }
 
-void Quad::insert(Circle *node)
+void Quad::insert(Circle *n)
 {
-    if (node == NULL)
+    if (!collision._boxPointCollide(this->box, n->property.getPosition()))
         return;
 
-    if (!collision._boxPointCollide(this->box, node->property.getPosition()))
-        return;
-
-    if (nodes.size() < capacity && nw == NULL)
+    if (this->node == nullptr && nw == nullptr)
     {
-        nodes.push_back(node);
+        this->node = n;
         return;
     }
 
-    if (nw == NULL)
+    if (nw == nullptr)
     {
         sf::Vector2f mid = sf::Vector2f((topLeft.x + botRight.x) / 2, (topLeft.y + botRight.y) / 2);
         nw = new Quad(topLeft, mid);
@@ -53,91 +48,91 @@ void Quad::insert(Circle *node)
         se = new Quad(mid, botRight);
     }
 
-    if (node->property.getPosition().x < (topLeft.x + botRight.x) / 2)
+    if (n->property.getPosition().x < (topLeft.x + botRight.x) / 2)
     {
-        if (node->property.getPosition().y < (topLeft.y + botRight.y) / 2)
-            nw->insert(node); // North-West
+        if (n->property.getPosition().y < (topLeft.y + botRight.y) / 2)
+            nw->insert(n); // North-West
         else
-            sw->insert(node); // South-West
+            sw->insert(n); // South-West
     }
     else
     {
-        if (node->property.getPosition().y < (topLeft.y + botRight.y) / 2)
-            ne->insert(node); // North-East
+        if (n->property.getPosition().y < (topLeft.y + botRight.y) / 2)
+            ne->insert(n); // North-East
         else
-            se->insert(node); // South-East
+            se->insert(n); // South-East
     }
 }
 
-std::vector<Circle *> Quad::search(Box range)
+std::vector<Circle *> Quad::search(sf::Vector2f topLeft_, sf::Vector2f botRight_)
 {
     std::vector<Circle *> found;
+    sf::Vector2f size = sf::Vector2f(botRight_.x - topLeft_.x, botRight_.y - topLeft_.y);
+    sf::Vector2f position = sf::Vector2f((topLeft_.x + botRight_.x) / 2.f, (topLeft_.y + botRight_.y) / 2.f);
+    Box range = Box(size, position);
 
     if (!collision._boxCollide(this->box, range))
     {
         return found;
     }
 
-    for (int i = 0; i < nodes.size(); i++)
+    if (this->node != nullptr)
     {
-        if (collision._boxPointCollide(range, nodes[i]->property.getPosition()))
-            found.push_back(nodes[i]);
+        if (collision._boxPointCollide(range, this->node->property.getPosition()))
+        {
+            found.push_back(this->node);
+        }
     }
 
-    if (nw == NULL)
+    if (nw == nullptr || sw == nullptr || ne == nullptr || se == nullptr)
     {
-
         return found;
     }
 
-    if (nw != NULL)
-    {
-        std::vector<Circle *> result = nw->search(range);
-        found.insert(found.end(), result.begin(), result.end());
-    }
+    std::vector<Circle *> nw_found = nw->search(topLeft_, botRight_);
+    std::vector<Circle *> sw_found = sw->search(topLeft_, botRight_);
+    std::vector<Circle *> ne_found = ne->search(topLeft_, botRight_);
+    std::vector<Circle *> se_found = se->search(topLeft_, botRight_);
 
-    if (sw != NULL)
-    {
-        std::vector<Circle *> result = sw->search(range);
-        found.insert(found.end(), result.begin(), result.end());
-    }
-
-    if (ne != NULL)
-    {
-        std::vector<Circle *> result = ne->search(range);
-        found.insert(found.end(), result.begin(), result.end());
-    }
-
-    if (se != NULL)
-    {
-        std::vector<Circle *> result = se->search(range);
-        found.insert(found.end(), result.begin(), result.end());
-    }
+    found.insert(found.end(), nw_found.begin(), nw_found.end());
+    found.insert(found.end(), sw_found.begin(), sw_found.end());
+    found.insert(found.end(), ne_found.begin(), ne_found.end());
+    found.insert(found.end(), se_found.begin(), se_found.end());
 
     return found;
 }
 
 void Quad::clear()
 {
-    if(nw == NULL){
-        nodes.clear();
+    // Clear the nodes in the current quadrant
+    node = nullptr;
+
+    if (nw == nullptr)
         return;
+
+    // Recursively clear nodes in child quadrants
+    if (nw != nullptr)
+    {
+        nw->clear();
+        delete nw;
+        nw = nullptr;
     }
-
-    nw->clear();
-    sw->clear();
-    ne->clear();
-    se->clear();
-
-    nodes.clear();
-
-    delete nw;
-    delete sw;
-    delete ne;
-    delete se;
-
-    nw = NULL;
-    sw = NULL;
-    ne = NULL;
-    se = NULL;
+    if (sw != nullptr)
+    {
+        sw->clear();
+        delete sw;
+        sw = nullptr;
+    }
+    if (ne != nullptr)
+    {
+        ne->clear();
+        delete ne;
+        ne = nullptr;
+    }
+    if (se != nullptr)
+    {
+        se->clear();
+        delete se;
+        se = nullptr;
+    }
 }

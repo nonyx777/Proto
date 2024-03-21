@@ -9,14 +9,14 @@
 // The objects that we want stored in the quadtree
 struct Node
 {
-	sf::Vector2f pos;
-	int data;
-	Node(sf::Vector2f _pos, int _data)
-	{
-		pos = _pos;
-		data = _data;
-	}
-	Node() { data = 0; }
+    sf::Vector2f pos;
+    int data;
+    Node(sf::Vector2f _pos, int _data)
+    {
+        pos = _pos;
+        data = _data;
+    }
+    Node() { data = 0; }
 };
 
 class Quad
@@ -25,9 +25,6 @@ public:
     sf::Vector2f topLeft;
     sf::Vector2f botRight;
     Circle *node;
-    std::vector<Circle*> nodes;
-    int capacity;
-
     Box box;
 
     Quad *ne;
@@ -40,6 +37,6 @@ public:
     Collision collision;
 
     void insert(Circle *node);
-    std::vector<Circle*> search(Box range);
-	void clear();
+    std::vector<Circle *> search(sf::Vector2f topLeft, sf::Vector2f botRight);
+    void clear();
 };
