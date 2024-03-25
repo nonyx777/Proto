@@ -12,6 +12,6 @@ public:
 public:
     ConfigWindow();
 
-    void update() override;
+    void update(float dt) override;
     void render(sf::RenderTarget *target) override;
 };

@@ -20,6 +20,6 @@ public:
     Box(sf::Vector2f size, sf::Vector2f position);
 
     void calcMomentOfInertia() override;
-    void update() override;
+    void update(float dt) override;
     void render(sf::RenderTarget *target) override;
 };

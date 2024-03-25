@@ -3,23 +3,25 @@
 #include "../library/UI/imgui.h"
 #include "../library/UI/imgui-SFML.h"
 
-sf::Event event;
-
 int main()
 {
+    sf::Clock clock;
+
     // Create a second SFML window for ImGui rendering
     ConfigWindow configWindow;
     while (configWindow.running())
     {
-        configWindow.update();
+        configWindow.update(0.f);
         configWindow.winRender();
     }
 
     Engine engine;
     while (engine.running())
     {
-        engine.update();
+        float dt = clock.restart().asSeconds();
+        engine.update(dt);
         engine.render();
+        GLOBAL::fps = 1.f/dt;
     }
 
     return 0;

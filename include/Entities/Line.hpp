@@ -15,6 +15,6 @@ public:
     Line(sf::Vector2f base, sf::Vector2f direction);
 
     void calcMomentOfInertia() override;
-    void update() override;
+    void update(float dt) override;
     void render(sf::RenderTarget *target) override;
 };

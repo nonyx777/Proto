@@ -23,7 +23,7 @@ Scene *Scene::getInstance()
     return instance;
 }
 
-void Scene::update()
+void Scene::update(float dt)
 {
 }
 

@@ -8,4 +8,5 @@ namespace GLOBAL
     inline int config_window_height = 400;
     inline int cell_size = 10;
     inline bool display_grid = false;
+    inline float fps = 0.f;
 }

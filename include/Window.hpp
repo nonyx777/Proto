@@ -36,7 +36,7 @@ public:
     ~Window();
 
     virtual void pollEvent();
-    void update() override;
+    void update(float dt) override;
     void render(sf::RenderTarget *target) override;
     void winRender();
 

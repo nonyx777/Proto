@@ -14,7 +14,7 @@ void ConfigWindow::initWindow()
     this->window->setFramerateLimit(60);
 }
 
-void ConfigWindow::update()
+void ConfigWindow::update(float dt)
 {
     this->pollEvent();
 

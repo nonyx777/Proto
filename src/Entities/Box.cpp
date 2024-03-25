@@ -44,7 +44,7 @@ void Box::calcMomentOfInertia()
     this->momentOfInertia = this->mass * ((bounds.height * bounds.height) + (bounds.width * bounds.width)) / 12.f;
 }
 
-void Box::update()
+void Box::update(float dt)
 {
     this->calcTorque(&this->property);
     this->calcAngularAcceleration(this);

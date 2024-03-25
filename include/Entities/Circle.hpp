@@ -18,6 +18,6 @@ public:
     Circle (float radius, sf::Vector2f position);
 
     void calcMomentOfInertia() override;
-    void update() override;
+    void update(float dt) override;
     void render(sf::RenderTarget *target) override;
 };

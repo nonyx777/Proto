@@ -32,7 +32,7 @@ void Circle::calcMomentOfInertia()
     this->momentOfInertia = this->mass * (this->property.getRadius() * this->property.getRadius());
 }
 
-void Circle::update()
+void Circle::update(float dt)
 {
     this->linearEuler(&this->property);
 }

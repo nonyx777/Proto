@@ -41,7 +41,7 @@ void Window::pollEvent()
     }
 }
 
-void Window::update()
+void Window::update(float dt)
 {
     this->pollEvent();
 

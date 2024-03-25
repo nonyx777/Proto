@@ -24,6 +24,6 @@ public:
 
     static Scene *getInstance();
 
-    void update() override;
+    void update(float dt) override;
     void render(sf::RenderTarget *target) override;
 };

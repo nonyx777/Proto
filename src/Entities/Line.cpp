@@ -18,7 +18,7 @@ void Line::calcMomentOfInertia()
     this->momentOfInertia = (this->mass * (length * length)) / 12.f; 
 }
 
-void Line::update()
+void Line::update(float dt)
 {
     //...
 }
