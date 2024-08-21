@@ -98,8 +98,6 @@ void Hash::queryParticles(uint particleId, float maxDist)
             }
         }
     }
-
-    queryIds.resize(this->querySize);
 }
 
 void Hash::resetTables()
